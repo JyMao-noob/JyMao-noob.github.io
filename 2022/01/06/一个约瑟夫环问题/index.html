@@ -16,20 +16,20 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.代码块12345678#include&lt;iostream&gt;using namespace std;int main()&amp;#123;    cout&lt;&lt;&quot;hello world&quot;&lt;&lt;endl;    return 0;&amp;#125;    2.标题写法12345&#x2F;&#x2F; 标题语法# 一级标题## 二级标题### 三级标题&#x2F;&#x2F; 以此类推    3.">
+    <meta name="description" content="消除游戏​    前两天刚好看到李永乐的数学趣味视频，讲的就是约瑟夫环问题，恰好leetcode每日一题碰到，于是写篇博客记录一下题解，还是蛮有趣的。 首先看题(leetcode 390.消除游戏  中等难度)：  列表 arr 由在范围 [1, n] 中的所有整数组成，并按严格递增排序。请你对 arr 应用下述算法： ​     从左到右，删除第一个数字，然后每隔一个数字删除一个，直到到达列表末">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MarkDown用法">
-<meta property="og:url" content="http://example.com/2022/01/06/MarkDown%E7%94%A8%E6%B3%95/index.html">
+<meta property="og:title" content="一个约瑟夫环问题">
+<meta property="og:url" content="http://example.com/2022/01/06/%E4%B8%80%E4%B8%AA%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="1.代码块12345678#include&lt;iostream&gt;using namespace std;int main()&amp;#123;    cout&lt;&lt;&quot;hello world&quot;&lt;&lt;endl;    return 0;&amp;#125;    2.标题写法12345&#x2F;&#x2F; 标题语法# 一级标题## 二级标题### 三级标题&#x2F;&#x2F; 以此类推    3.">
+<meta property="og:description" content="消除游戏​    前两天刚好看到李永乐的数学趣味视频，讲的就是约瑟夫环问题，恰好leetcode每日一题碰到，于是写篇博客记录一下题解，还是蛮有趣的。 首先看题(leetcode 390.消除游戏  中等难度)：  列表 arr 由在范围 [1, n] 中的所有整数组成，并按严格递增排序。请你对 arr 应用下述算法： ​     从左到右，删除第一个数字，然后每隔一个数字删除一个，直到到达列表末">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-06T11:30:04.000Z">
-<meta property="article:modified_time" content="2022-01-06T11:48:43.866Z">
+<meta property="article:published_time" content="2022-01-06T11:54:14.000Z">
+<meta property="article:modified_time" content="2022-01-06T12:18:21.364Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>MarkDown用法 - Hexo</title>
+  <title>一个约瑟夫环问题 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -175,7 +175,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="MarkDown用法">
+            <span class="h2" id="subtitle" title="一个约瑟夫环问题">
               
             </span>
 
@@ -185,7 +185,7 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-06 19:30" pubdate>
+      <time datetime="2022-01-06 19:54" pubdate>
         2022年1月6日 晚上
       </time>
     </span>
@@ -196,7 +196,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      438 字
+      1.2k 字
     </span>
   
 
@@ -205,7 +205,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4 分钟
+      10 分钟
     </span>
   
 
@@ -234,48 +234,32 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">MarkDown用法</h1>
+            <h1 style="display: none">一个约瑟夫环问题</h1>
             
             <div class="markdown-body">
-              <h1 id="1-代码块"><a href="#1-代码块" class="headerlink" title="1.代码块"></a>1.代码块</h1><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    cout&lt;&lt;<span class="hljs-string">&quot;hello world&quot;</span>&lt;&lt;endl;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <h1 id="消除游戏"><a href="#消除游戏" class="headerlink" title="消除游戏"></a>消除游戏</h1><p>​    前两天刚好看到李永乐的数学趣味视频，讲的就是约瑟夫环问题，恰好leetcode每日一题碰到，于是写篇博客记录一下题解，还是蛮有趣的。</p>
+<p>首先看题(leetcode 390.消除游戏  中等难度)：</p>
+<blockquote>
+<p>列表 arr 由在范围 [1, n] 中的所有整数组成，并按严格递增排序。请你对 arr 应用下述算法：</p>
+<p>​     从左到右，删除第一个数字，然后每隔一个数字删除一个，直到到达列表末尾。<br>​      重复上面的步骤，但这次是从右到左。也就是，删除最右侧的数字，然后剩下的数字每隔一个删除一个。<br>​      不断重复这两步，从左到右和从右到左交替进行，直到只剩下一个数字。<br>给你整数 n ，返回 arr 最后剩下的数字。</p>
+</blockquote>
+<h2 id="解法1"><a href="#解法1" class="headerlink" title="解法1"></a>解法1</h2><p>​    利用两个参数记录当前元素head和步长step，再用一个bool参数left记录扫描方向。</p>
+<p>​    解析可以看国外码友给出的，易懂简单，链接在下。</p>
+<p>​    [a link](<a target="_blank" rel="noopener" href="https://leetcode.com/problems/elimination-game/discuss/87119/JAVA%3A-Easiest-solution-O(logN)-with-explanation">JAVA: Easiest solution O(logN) with explanation - LeetCode Discuss</a></p>
+<p>​    直接上代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lastRemaining</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">int</span> head = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">int</span> step = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">bool</span> left = <span class="hljs-literal">true</span>;<br>        <span class="hljs-comment">//int n = n</span><br><br>        <span class="hljs-keyword">while</span> (n &gt; <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-comment">//从左边开始移除 or（从右边开始移除，数列总数为奇数）</span><br>            <span class="hljs-keyword">if</span> (left || n % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>) &#123;<br>                head += step;<br>            &#125;<br>            step &lt;&lt;= <span class="hljs-number">1</span>; <span class="hljs-comment">//步长 * 2</span><br>            n &gt;&gt;= <span class="hljs-number">1</span>;  <span class="hljs-comment">//总数 / 2</span><br>            left = !left; <span class="hljs-comment">//取反移除方向</span><br>        &#125;<br><br>        <span class="hljs-keyword">return</span> head;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 
 
-<h1 id="2-标题写法"><a href="#2-标题写法" class="headerlink" title="2.标题写法"></a>2.标题写法</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 标题语法</span><br># 一级标题<br>## 二级标题<br>### 三级标题<br><span class="hljs-comment">// 以此类推</span><br></code></pre></td></tr></table></figure>
+<h2 id="解法2（约瑟夫环问题）"><a href="#解法2（约瑟夫环问题）" class="headerlink" title="解法2（约瑟夫环问题）"></a>解法2（约瑟夫环问题）</h2><p>​    不妨定义，f[i]为在连续序列[1,i]中进行<strong>起始从左往右</strong>扫描并轮流间隔删除，最终左边剩下的那个符号，g[i]为在连续序列[1,i]中进行<strong>起始从右往左</strong>扫描并轮流间隔删除，最终右边剩下的那个符号。</p>
+<p>​    所以有： f[i] + g[i] = i+1</p>
+<p>​    同时，在每一轮扫描删除后，我们需要进行<em>重新编号i</em>确保f[i]和g[i]的合法状态，在重新编号后，还需要将答案编号映射回原编号。每一次扫描，新产生序列长度为**i/2(这里采用加粗表示向下取整，下同)**。</p>
+<p>​    可得第二个公式： f[i] = g[<strong>i/2</strong>]*2</p>
+<p>​    连列消除g[i]，得到f[i] = 2 * (<strong>i/2</strong> + 1 - f[<strong>i/2</strong>])</p>
+<p>​    此时很明显需要求的函数lastRemaining就是f[i]，注意递归出口f[1]=1</p>
+<p>​    贴代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lastRemaining</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> n == <span class="hljs-number">1</span> ? <span class="hljs-number">1</span> : <span class="hljs-number">2</span> * (n / <span class="hljs-number">2</span> + <span class="hljs-number">1</span> - <span class="hljs-built_in">lastRemaining</span>(n / <span class="hljs-number">2</span>);<br>    &#125; <br>&#125;;<br></code></pre></td></tr></table></figure>
 
-
-
-<h1 id="3-字体"><a href="#3-字体" class="headerlink" title="3.字体"></a>3.字体</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 加粗</span><br>**十年之前**<br><span class="hljs-comment">// 高亮</span><br>==你不认识我==<br><span class="hljs-comment">// 删除线</span><br>~~我不属于你~~<br><span class="hljs-comment">// 斜体</span><br>*我们还是一样*<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="4-引用"><a href="#4-引用" class="headerlink" title="4.引用"></a>4.引用</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 引用语法</span><br>&gt;一级引用<br>&gt;&gt;二级引用<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="5-分割线"><a href="#5-分割线" class="headerlink" title="5.分割线"></a>5.分割线</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 分割线</span><br>---<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="6-图片插入"><a href="#6-图片插入" class="headerlink" title="6.图片插入"></a>6.图片插入</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 在线图片、本地图片</span><br><br>![图片名字](路径)<br></code></pre></td></tr></table></figure>
-
-
-
-<h1 id="7-超链接"><a href="#7-超链接" class="headerlink" title="7.超链接"></a>7.超链接</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 超链接语法</span><br>[我的Github](https:<span class="hljs-comment">//github.com/JyMao-noob)</span><br></code></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://github.com/JyMao-noob">我的Github</a></p>
-<h1 id="8-列表"><a href="#8-列表" class="headerlink" title="8.列表"></a>8.列表</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-comment">// 无序列表</span><br>- 列表<span class="hljs-number">1</span><br>- 列表<span class="hljs-number">2</span><br><span class="hljs-comment">// 有序列表</span><br><span class="hljs-number">1.</span>name<br></code></pre></td></tr></table></figure>
-
-<ul>
-<li>列表1</li>
-</ul>
-<ol>
-<li><p>首页</p>
-</li>
-<li><p>自动弹出2</p>
-</li>
-</ol>
-<h1 id="9-表格"><a href="#9-表格" class="headerlink" title="9.表格"></a>9.表格</h1><p>正常直接右键插入表格即可</p>
 
             </div>
             <hr>
@@ -296,15 +280,15 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/06/%E4%B8%80%E4%B8%AA%E7%BA%A6%E7%91%9F%E5%A4%AB%E7%8E%AF%E9%97%AE%E9%A2%98/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">一个约瑟夫环问题</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/01/06/MarkDown%E7%94%A8%E6%B3%95/">
+                        <span class="hidden-mobile">MarkDown用法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
