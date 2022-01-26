@@ -16,21 +16,30 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题意第 i 只猫吃一条鱼需要花费a [ i ]的时间。且一只猫在同一时间最多只会吃一条鱼。在第0时刻，每只猫会开始吃一条鱼。每当有一只猫吃完鱼时，如果此时还有鱼，它会立刻吃下一条鱼。如果有k只猫在同一时刻一起吃完了鱼，且此时剩下的鱼的个数不足 k,a [ i ] 较小的猫会优先吃鱼。 求x个时间后，有多少条鱼还没被吃过，以及有多少鱼已经被吃了一部分了。 正解是用个小根堆，每次将鱼分给目前最先将要吃">
+    <meta name="description" content="x的平方根实现 int sqrt(int x) 函数。计算并返回 x 的平方根，其中 x 是非负整数。由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。  示例 1:  12输入: 4输出: 2   示例 2:  1234输入: 8输出: 2说明: 8 的平方根是 2.82842...,      由于返回类型是整数，小数部分将被舍去。   我的思路：代码：  1234567891011">
 <meta property="og:type" content="article">
-<meta property="og:title" content="贪心-小猫吃鱼">
-<meta property="og:url" content="http://example.com/2022/01/22/%E8%B4%AA%E5%BF%83-%E5%B0%8F%E7%8C%AB%E5%90%83%E9%B1%BC/index.html">
+<meta property="og:title" content="求x的平方根--牛顿迭代法">
+<meta property="og:url" content="http://example.com/2022/01/26/%E6%B1%82x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9-%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="题意第 i 只猫吃一条鱼需要花费a [ i ]的时间。且一只猫在同一时间最多只会吃一条鱼。在第0时刻，每只猫会开始吃一条鱼。每当有一只猫吃完鱼时，如果此时还有鱼，它会立刻吃下一条鱼。如果有k只猫在同一时刻一起吃完了鱼，且此时剩下的鱼的个数不足 k,a [ i ] 较小的猫会优先吃鱼。 求x个时间后，有多少条鱼还没被吃过，以及有多少鱼已经被吃了一部分了。 正解是用个小根堆，每次将鱼分给目前最先将要吃">
+<meta property="og:description" content="x的平方根实现 int sqrt(int x) 函数。计算并返回 x 的平方根，其中 x 是非负整数。由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。  示例 1:  12输入: 4输出: 2   示例 2:  1234输入: 8输出: 2说明: 8 的平方根是 2.82842...,      由于返回类型是整数，小数部分将被舍去。   我的思路：代码：  1234567891011">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-01-22T10:18:26.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:21:49.414Z">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172303414.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172414301.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172419652.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172458882.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172551863.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172610903.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172728422.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20210110172735673.png">
+<meta property="article:published_time" content="2022-01-26T10:23:10.000Z">
+<meta property="article:modified_time" content="2022-01-26T10:27:14.872Z">
 <meta property="article:author" content="Jy Mao">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20210110172303414.png">
   
   
-  <title>贪心-小猫吃鱼 - Jy Mao&#39;s Blog</title>
+  <title>求x的平方根--牛顿迭代法 - Jy Mao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -164,7 +173,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="贪心-小猫吃鱼">
+            <span class="h2" id="subtitle" title="求x的平方根--牛顿迭代法">
               
             </span>
 
@@ -174,8 +183,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-01-22 18:18" pubdate>
-        2022年1月22日 晚上
+      <time datetime="2022-01-26 18:23" pubdate>
+        2022年1月26日 晚上
       </time>
     </span>
   
@@ -185,7 +194,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      644 字
     </span>
   
 
@@ -194,7 +203,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9 分钟
+      6 分钟
     </span>
   
 
@@ -223,12 +232,35 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">贪心-小猫吃鱼</h1>
+            <h1 style="display: none">求x的平方根--牛顿迭代法</h1>
             
             <div class="markdown-body">
-              <h1 id="题意"><a href="#题意" class="headerlink" title="题意"></a>题意</h1><p>第 i 只猫吃一条鱼需要花费a [ i ]的时间。且一只猫在同一时间最多只会吃一条鱼。在第0时刻，每只猫会开始吃一条鱼。每当有一只猫吃完鱼时，如果此时还有鱼，它会立刻吃下一条鱼。如果有k只猫在同一时刻一起吃完了鱼，且此时剩下的鱼的个数不足 k,a [ i ] 较小的猫会优先吃鱼。 求x个时间后，有多少条鱼还没被吃过，以及有多少鱼已经被吃了一部分了。</p>
-<h1 id="正解"><a href="#正解" class="headerlink" title="正解"></a>正解</h1><p>是用个小根堆，每次将鱼分给目前最先将要吃完的猫，让鱼的数量−1，直到时间已经超过x或者所有鱼都被分配了，此时的m就是剩下的鱼的数量。然后我们将堆中结束时间小于等于x的弹出，堆中剩下的元素的数量就是已经被吃了一部分的。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;cstdio&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;algorithm&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;queue&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> ll long long</span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br>priority_queue&lt;pair&lt;ll,<span class="hljs-keyword">int</span>&gt;,vector&lt;pair&lt;ll,<span class="hljs-keyword">int</span>&gt; &gt;,greater&lt;pair&lt;ll,<span class="hljs-keyword">int</span>&gt; &gt; &gt;q;<br><span class="hljs-keyword">int</span> m,n,xx,a[<span class="hljs-number">1001000</span>],ans;<br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	cin&gt;&gt;m&gt;&gt;n&gt;&gt;xx;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;++i)<br>	&#123;<br>		<span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>,&amp;a[i]);<br>		q.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">make_pair</span>(<span class="hljs-number">1ll</span>*a[i],i));<br>	&#125;	<br>	m-=n;<br>	<span class="hljs-keyword">while</span>(m&gt;=<span class="hljs-number">1</span>&amp;&amp;q.<span class="hljs-built_in">top</span>().first&lt;xx)<span class="hljs-comment">//这里是小于，因为当时间等于x时不会分配新的鱼 </span><br>	&#123;<br>		<span class="hljs-keyword">int</span> x=q.<span class="hljs-built_in">top</span>().first;<br>		<span class="hljs-keyword">int</span> y=q.<span class="hljs-built_in">top</span>().second;<br>		q.<span class="hljs-built_in">pop</span>();<br>		m--;<br>		x+=a[y];<br>		q.<span class="hljs-built_in">push</span>(<span class="hljs-built_in">make_pair</span>(x,y));<br>	&#125;<br>	<span class="hljs-keyword">while</span>(!q.<span class="hljs-built_in">empty</span>()&amp;&amp;q.<span class="hljs-built_in">top</span>().first&lt;=xx)<br>		q.<span class="hljs-built_in">pop</span>();<br>	<span class="hljs-keyword">while</span>(!q.<span class="hljs-built_in">empty</span>())<br>	&#123;<br>		q.<span class="hljs-built_in">pop</span>();<br>		ans++;<br>	&#125;<br>	cout&lt;&lt;m&lt;&lt;<span class="hljs-string">&quot; &quot;</span>&lt;&lt;ans; <br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125; <br></code></pre></td></tr></table></figure>
+              <h1 id="x的平方根"><a href="#x的平方根" class="headerlink" title="x的平方根"></a>x的平方根</h1><p>实现 int sqrt(int x) 函数。<br>计算并返回 x 的平方根，其中 x 是非负整数。<br>由于返回类型是整数，结果只保留整数的部分，小数部分将被舍去。</p>
+<ul>
+<li>示例 1:</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: 4</span><br><span class="hljs-section">输出: 2</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>示例 2:</li>
+</ul>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs makefile"><span class="hljs-section">输入: 8</span><br><span class="hljs-section">输出: 2</span><br><span class="hljs-section">说明: 8 的平方根是 2.82842..., </span><br>     由于返回类型是整数，小数部分将被舍去。<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>我的思路：<br><img src="https://img-blog.csdnimg.cn/20210110172303414.png" srcset="/img/loading.gif" lazyload alt="1"><br>代码：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>:</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mySqrt</span>(<span class="hljs-params">self, x: <span class="hljs-built_in">int</span></span>) -&gt; <span class="hljs-built_in">int</span>:</span><br>        left, right = <span class="hljs-number">0</span>, x<br>        mid = <span class="hljs-number">0</span><br>        <span class="hljs-keyword">while</span>(left &lt;= right):<br>            mid = left + (right - left)//<span class="hljs-number">2</span><br>            <span class="hljs-keyword">if</span>(mid**<span class="hljs-number">2</span> &gt; x):<br>                right = mid - <span class="hljs-number">1</span><br>            <span class="hljs-keyword">elif</span>(mid**<span class="hljs-number">2</span> &lt; x):<br>                left = mid + <span class="hljs-number">1</span><br>            <span class="hljs-keyword">else</span>:<br>                <span class="hljs-keyword">return</span> mid<br>        <span class="hljs-keyword">return</span> right<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20210110172414301.png" srcset="/img/loading.gif" lazyload alt="2"><br><img src="https://img-blog.csdnimg.cn/20210110172419652.png" srcset="/img/loading.gif" lazyload alt="3"></p>
+<ul>
+<li>优化<br>牛顿迭代法公式如下：<br><img src="https://img-blog.csdnimg.cn/20210110172458882.png" srcset="/img/loading.gif" lazyload alt="5"><br>对于本题可化为以下形式：<br>已知：<br><img src="https://img-blog.csdnimg.cn/20210110172551863.png" srcset="/img/loading.gif" lazyload alt="6"><br>化简：<br><img src="https://img-blog.csdnimg.cn/20210110172610903.png" srcset="/img/loading.gif" lazyload alt="7"><br>代码：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span>(<span class="hljs-params"><span class="hljs-built_in">object</span></span>):</span><br>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mySqrt</span>(<span class="hljs-params">self, x</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        :type x: int</span><br><span class="hljs-string">        :rtype: int</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        y = long(x)<br>        <span class="hljs-keyword">while</span>(y * y &gt; x):<br>            y = (y + x / y) / <span class="hljs-number">2</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">int</span>(y)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20210110172728422.png" srcset="/img/loading.gif" lazyload alt="8"><br><img src="https://img-blog.csdnimg.cn/20210110172735673.png" srcset="/img/loading.gif" lazyload alt="9"></p>
+<ul>
+<li>总结：<br>使用二分法，若是数字类型数据要保证区间是<strong>单调的</strong>。<br>至于牛顿迭代法，就是迭代的方法来求解函数方程的根，牛顿法就是不断求取切线的过程，数值分析这门课学过，只了解一点皮毛😄，也是看了题解才想到这个的。</li>
+</ul>
 
             </div>
             <hr>
@@ -256,18 +288,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/01/26/%E6%B1%82x%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9-%E7%89%9B%E9%A1%BF%E8%BF%AD%E4%BB%A3%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">求x的平方根--牛顿迭代法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/01/18/python%E8%A3%85%E9%A5%B0%E5%99%A8/">
-                        <span class="hidden-mobile">python装饰器</span>
+                      <a href="/2022/01/22/%E8%B4%AA%E5%BF%83-%E5%B0%8F%E7%8C%AB%E5%90%83%E9%B1%BC/">
+                        <span class="hidden-mobile">贪心-小猫吃鱼</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
