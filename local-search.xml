@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>linux踩坑</title>
+    <link href="/2022/02/02/linux%E8%B8%A9%E5%9D%91/"/>
+    <url>/2022/02/02/linux%E8%B8%A9%E5%9D%91/</url>
+    
+    <content type="html"><![CDATA[<h2 id="错误Error-mounting-dev-sda3-at-XXXX-Command-line-mount-t-“ntfs”-o"><a href="#错误Error-mounting-dev-sda3-at-XXXX-Command-line-mount-t-“ntfs”-o" class="headerlink" title="错误Error: mounting /dev/sda3 at XXXX: Command-line `mount -t “ntfs” -o"></a>错误Error: mounting /dev/sda3 at XXXX: Command-line `mount -t “ntfs” -o</h2><h3 id="发现背景"><a href="#发现背景" class="headerlink" title="发现背景"></a>发现背景</h3><h4 id="系统：-Ubuntu16"><a href="#系统：-Ubuntu16" class="headerlink" title="系统： Ubuntu16"></a><strong>系统： Ubuntu16</strong></h4><p><strong>问题发生场景</strong>： 在重启电脑从Win10切换到Ubuntu之后，查看Win10的C盘中的文件不成功，发生 <code>Error mounting /dev/sda3 at xxx: Command-line mount -t &quot;ntfs&quot; -o</code> 错误</p><h3 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h3><p><code>Error mounting /dev/sda3 at xxx: Command-line mount -t &quot;ntfs&quot; -o</code> 错误，可能是关闭Win10系统时，其没有完全关机，导致访问Win10磁盘错误，需要<strong>修复挂载错误的相应分区</strong>。</p><p><strong>修复挂载错误的相应的分区，如我这里是/dev/sda3，输入：</strong></p><figure class="highlight shell"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><pre><code class="hljs shell">sudo ntfsfix /dev/sda3<br></code></pre></td></tr></table></figure><p>然后就可以访问了。</p>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>排序+计数---游戏中弱角色数量</title>
     <link href="/2022/01/30/%E6%8E%92%E5%BA%8F-%E8%AE%A1%E6%95%B0-%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%BC%B1%E8%A7%92%E8%89%B2%E6%95%B0%E9%87%8F/"/>
     <url>/2022/01/30/%E6%8E%92%E5%BA%8F-%E8%AE%A1%E6%95%B0-%E6%B8%B8%E6%88%8F%E4%B8%AD%E5%BC%B1%E8%A7%92%E8%89%B2%E6%95%B0%E9%87%8F/</url>
