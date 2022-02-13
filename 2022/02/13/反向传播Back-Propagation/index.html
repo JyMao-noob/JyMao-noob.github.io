@@ -16,18 +16,18 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="*什么是反向传播（What***is backpropagation?**） 我们可以将反向传播算法定义为在已知分类的情况下，为给定的输入模式训练某些给定的前馈神经网络的算法。当示例集的每一段都显示给网络时，网络将查看其对示例输入模式的输出反应。之后，测量输出响应与期望输出与误差值的比较。之后，我们根据测量的误差值调整连接权重。 在深入研究反向传播之前，我们应该知道是谁引入了这个概念以及何时引入。">
+    <meta name="description" content="什么是反向传播（What is backpropagation?） 我们可以将反向传播算法定义为在已知分类的情况下，为给定的输入模式训练某些给定的前馈神经网络的算法。当示例集的每一段都显示给网络时，网络将查看其对示例输入模式的输出反应。之后，测量输出响应与期望输出与误差值的比较。之后，我们根据测量的误差值调整连接权重。 在深入研究反向传播之前，我们应该知道是谁引入了这个概念以及何时引入。它最早出现">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反向传播Back Propagation">
 <meta property="og:url" content="http://example.com/2022/02/13/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%ADBack-Propagation/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="*什么是反向传播（What***is backpropagation?**） 我们可以将反向传播算法定义为在已知分类的情况下，为给定的输入模式训练某些给定的前馈神经网络的算法。当示例集的每一段都显示给网络时，网络将查看其对示例输入模式的输出反应。之后，测量输出响应与期望输出与误差值的比较。之后，我们根据测量的误差值调整连接权重。 在深入研究反向传播之前，我们应该知道是谁引入了这个概念以及何时引入。">
+<meta property="og:description" content="什么是反向传播（What is backpropagation?） 我们可以将反向传播算法定义为在已知分类的情况下，为给定的输入模式训练某些给定的前馈神经网络的算法。当示例集的每一段都显示给网络时，网络将查看其对示例输入模式的输出反应。之后，测量输出响应与期望输出与误差值的比较。之后，我们根据测量的误差值调整连接权重。 在深入研究反向传播之前，我们应该知道是谁引入了这个概念以及何时引入。它最早出现">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://pics3.baidu.com/feed/f703738da9773912228be5623094dc1e377ae29c.jpeg?token=09a03819fae302acce430f3905f1c4ff">
 <meta property="og:image" content="https://pics1.baidu.com/feed/d52a2834349b033b08ee2b23d3436cd5d439bd7d.jpeg?token=0fec83de0c55ac98d49eb541ac861336">
 <meta property="og:image" content="https://pics7.baidu.com/feed/b151f8198618367a27b8ba87e8fed1d2b21ce5c8.jpeg?token=75018d97deea6fadd322dfe2dd2e15ed">
 <meta property="article:published_time" content="2022-02-13T10:58:26.000Z">
-<meta property="article:modified_time" content="2022-02-13T11:16:15.876Z">
+<meta property="article:modified_time" content="2022-02-13T11:26:40.075Z">
 <meta property="article:author" content="Jy Mao">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
@@ -230,10 +230,10 @@
             <h1 style="display: none">反向传播Back Propagation</h1>
             
             <div class="markdown-body">
-              <p>*<em>什么是反向传播（What</em>***is backpropagation?**<strong>）</strong></p>
+              <p><strong>什么是反向传播（What is backpropagation?）</strong></p>
 <p>我们可以将反向传播算法定义为在已知分类的情况下，为给定的输入模式训练某些给定的前馈神经网络的算法。当示例集的每一段都显示给网络时，网络将查看其对示例输入模式的输出反应。之后，测量输出响应与期望输出与误差值的比较。之后，我们根据测量的误差值调整连接权重。</p>
 <p>在深入研究反向传播之前，我们应该知道是谁引入了这个概念以及何时引入。它最早出现在20世纪60年代，30年后由大卫·鲁梅尔哈特、杰弗里·辛顿和罗纳德·威廉姆斯在1986年的著名论文中推广。在这篇论文中，他们谈到了各种神经网络。今天，反向传播做得很好。神经网络训练是通过反向传播实现的。通过这种方法，我们根据前一次运行获得的错误率对神经网络的权值进行微调。正确地采用这种方法可以降低错误率，提高模型的可靠性。利用反向传播训练链式法则的神经网络。简单地说，每次前馈通过网络后，该算法根据权值和偏差进行后向传递，调整模型的参数。典型的监督学习算法试图找到一个将输入数据映射到正确输出的函数。反向传播与多层神经网络一起工作，学习输入到输出映射的内部表示。</p>
-<p>*<em>反向传播是如何工作的？（</em>***How does backpropagation work?**<strong>）</strong></p>
+<p><strong>反向传播是如何工作的？（How does backpropagation work?）</strong></p>
 <p>让我们看看反向传播是如何工作的。它有四层：输入层、隐藏层、隐藏层II和最终输出层。</p>
 <p>所以，主要的三层是：</p>
 <p>1.输入层</p>
@@ -248,18 +248,18 @@
 <p>4.实际输出和期望输出之间的差异称为误差</p>
 <p>5.返回隐藏层并调整权重，以便在以后的运行中减少此错误</p>
 <p>这个过程一直重复，直到我们得到所需的输出。训练阶段在监督下完成。一旦模型稳定下来，就可以用于生产。</p>
-<p><strong>损失函数（<strong><strong>Loss function</strong></strong>）</strong></p>
+<p><strong>损失函数（Loss function）</strong></p>
 <p>一个或多个变量被映射到实数，这些实数表示与这些变量值相关的某个数值。为了进行反向传播，损失函数计算网络输出与其可能输出之间的差值。</p>
-<p>*<em>为什么我们需要反向传播？（</em><em><strong>Why do we need</strong></em>*backpropagation?**<strong>）</strong></p>
+<p><strong>为什么我们需要反向传播？（Why do we need backpropagation?）</strong></p>
 <p>反向传播有许多优点，下面列出一些重要的优点：</p>
 <p>反向传播快速、简单且易于实现</p>
 <p>没有要调整的参数</p>
 <p>不需要网络的先验知识，因此成为一种灵活的方法</p>
 <p>这种方法在大多数情况下都很有效</p>
 <p>模型不需要学习函数的特性</p>
-<p><strong>前馈网络（<strong><strong>Feed forward network</strong></strong>）</strong></p>
+<p><strong>前馈网络（Feed forward network）</strong></p>
 <p>前馈网络也称为MLN，即多层网络。 之所以称为前馈，是因为数据仅在NN（神经网络）中通过输入节点，隐藏层并最终到达输出节点。 它是最简单的人工神经网络。</p>
-<p><strong>反向传播的类型（<strong><strong>Types of backpropagation</strong></strong>）</strong></p>
+<p><strong>反向传播的类型（Types of backpropagation）</strong></p>
 <p>有两种类型的反向传播网络。</p>
 <p>静态反向传播（Static backpropagation）</p>
 <p>循环反向传播（Recurrent backpropagation）</p>
@@ -268,7 +268,7 @@
 <p>\2. 循环反向传播（Recurrent backpropagation）</p>
 <p>反复进行反向传播，直到达到某个阈值为止。 在到达阈值之后，将计算误差并向后传播。</p>
 <p>这两种方法的区别在于，静态反向传播与静态映射一样快。</p>
-<p><strong>案例研究（Case<strong><strong>Study</strong></strong>）</strong></p>
+<p><strong>案例研究（Case Study）</strong></p>
 <p>让我们使用反向传播进行案例研究。 为此，我们将使用Iris数据（鸢尾花卉数据集），该数据包含诸如萼片和花瓣的长度和宽度之类的特征。 在这些帮助下，我们需要确定植物的种类。</p>
 <p>为此，我们将构建一个多层神经网络，并使用sigmoid函数，因为它是一个分类问题。</p>
 <p>让我们看一下所需的库和数据。</p>
@@ -361,12 +361,12 @@
 <p>print (“Validation Accuracy of the model “+ str(round(accuracy_validation,2)) + “%”)</p>
 <p>Output: Validation Accuracy 92.86%</p>
 <p>这个性能符合预期。</p>
-<p><strong>应遵循的最佳实践<strong><strong>准则（</strong></strong>Best practices to follow****）</strong></p>
+<p><strong>应遵循的最佳实践准则（Best practices to follow）</strong></p>
 <p>下面讨论一些获得好模型的方法：</p>
 <p>如果约束非常少，则系统可能不起作用</p>
 <p>过度训练，过多的约束会导致过程缓慢</p>
 <p>只关注少数方面会导致偏见</p>
-<p><strong>反向传播的缺点（<strong><strong>Disadvantages of backpropagation</strong></strong>）</strong></p>
+<p><strong>反向传播的缺点（Disadvantages of backpropagation）</strong></p>
 <p>输入数据是整体性能的关键</p>
 <p>有噪声的数据会导致不准确的结果</p>
 <p>基于矩阵的方法优于小批量方法（mini-batch）</p>
