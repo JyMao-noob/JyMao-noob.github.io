@@ -16,62 +16,72 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="反向传播算法（Backpropagation）是目前用来训练人工神经网络（Artificial Neural Network，ANN）的最常用且最有效的算法。其主要思想是： （1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出层并输出结果，这是ANN的前向传播过程； （2）由于ANN的输出结果与实际结果有误差，则计算估计值与实际值之间的误差，并将该误差从输出层向隐藏层反向传播，直至传播">
+    <meta name="description" content="在利用梯度下降法对神经网络权重等参数进行训练时，需要利用反向传播去计算损失函数对权重参数的偏导数。 反向传播下面分析是如何反向传播的(分析时不考虑偏置项)，  参考上图， ① 对于一个神经  ，它的输出被定义为  其中,  表示神经元  到  之间的权重，  是上一层神经元的输出。  为激活函数，这里取为  函数，   函数的求导公式为，  ② 损失函数定义为，  其中，  为输出层的输出，  为">
 <meta property="og:type" content="article">
 <meta property="og:title" content="反向传播Back Propagation">
 <meta property="og:url" content="http://example.com/2022/02/13/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%ADBack-Propagation/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="反向传播算法（Backpropagation）是目前用来训练人工神经网络（Artificial Neural Network，ANN）的最常用且最有效的算法。其主要思想是： （1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出层并输出结果，这是ANN的前向传播过程； （2）由于ANN的输出结果与实际结果有误差，则计算估计值与实际值之间的误差，并将该误差从输出层向隐藏层反向传播，直至传播">
+<meta property="og:description" content="在利用梯度下降法对神经网络权重等参数进行训练时，需要利用反向传播去计算损失函数对权重参数的偏导数。 反向传播下面分析是如何反向传播的(分析时不考虑偏置项)，  参考上图， ① 对于一个神经  ，它的输出被定义为  其中,  表示神经元  到  之间的权重，  是上一层神经元的输出。  为激活函数，这里取为  函数，   函数的求导公式为，  ② 损失函数定义为，  其中，  为输出层的输出，  为">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202509000">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202738142">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202834876">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202850705">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202901392">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202912017">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202925814">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202901392">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202912017">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202949221">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202901392">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202912017">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203046815">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203055737">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202901392">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202912017">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203135690">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203156534">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203231972">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203246065">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203254284">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203304753">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203313706">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202901392">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401202912017">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203433129">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203458879">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203521035">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203529707">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203552879">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203604942">
-<meta property="og:image" content="https://img-blog.csdn.net/20161230105754424">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203624973">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203634161">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203641989">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203656833">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203715973">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203739849">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203806927">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203820380">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203833583">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203848037">
-<meta property="og:image" content="https://img-blog.csdn.net/20160401203859349">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-fb0b3f2f8d733e0f93a317ecffe2b201_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=+O_j+=+%5Cvarphi(net_j)=%5Cvarphi(%5Csum_%7Bk=1%7D%5EN+w_%7Bkj%7DO_k)+%5Ctag%7B1.1%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=w_%7Bkj%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=k">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_k">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cvarphi">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=logistic">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cvarphi(z)=%5Cfrac%7B1%7D%7B1++e%5E%7B-z%7D+%7D+%5Ctag%7B1.2%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=logistic">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7Bd%5Cvarphi+%5Cleft(+z%5Cright)+%7D%7Bdz%7D=%5Cvarphi%5Cleft(+z%5Cright)+%5Cleft(+1-%5Cvarphi%5Cleft(+z%5Cright)+%5Cright)++%5Ctag%7B1.3%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E=%5Cdfrac+%7B1%7D%7B2%7D%5Cleft(+t-y%5Cright)+%5E%7B2%7D+%5Ctag%7B1.4%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=y">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=t">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=w_%7Bkj%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=w_%7Bij%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bij%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj%7D%7D%7B%5Cpartial+net_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj%7D%7D%7B%5Cpartial+w_%7Bij%7D%7D+%5Ctag%7B1.5%7D+">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cfrac%7B%5Cpartial+O_%7Bj%7D%7D%7B%5Cpartial+net_%7Bj%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%7B1.3%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+net_%7Bj%7D%7D%7B%5Cpartial+w_%7Bij%7D%7D=O_i">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac%7B%5Cpartial+E%7D%7B%5Cpartial+%7BO_j%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j=y">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+y%7D=%5Cdfrac+%7B%5Cpartial+%7D%7B%5Cpartial+y%7D%5Cdfrac+%7B1%7D%7B2%7D%5Cleft(+t-y%5Cright)+%5E%7B2%7D=y-t+%5Ctag%7B1.6%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cfrac%7B%5Cpartial+E%7D%7B%5Cpartial+%7BO_j%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=L=u,v+%5Cdots,w">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=u,v,w">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=net_u,net_v,net_w">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%5Cleft(+O_%7Bj%7D%5Cright)+%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Cdfrac+%7B%5Cpartial+E%5Cleft(+net_u,net_v,%5Cldots+,net_%7Bw%7D%5Cright)+%7D%7B%5Cpartial+O_%7Bj%7D%7D+%5Ctag%7B1.7%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Csum+%7Bl%5Cin+L%7D%5Cleft(+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+net%7Bl%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bl%7D%7D%7B%5Cpartial+O_j%7D%5Cright)+=%5Csum+%7Bl%5Cin+L%7D%5Cleft(+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_l%7D%5Cdfrac+%7B%5Cpartial+O_l%7D%7B%5Cpartial+net_l%7Dw%7Bjl%7D%5Cright)+%5Ctag%7B1.8%7D+">
+<meta property="og:image" content="https://pic2.zhimg.com/80/v2-b5acfede3399a73e46e483264da28ebd_720w.jpg">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-1,j%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_j%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+w_%7Bj-1,j%7D%7D+%5Ctag%7B1.9%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_j%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+y%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj-1%7D%7D%7B%5Cpartial+net_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj-1%7D%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+O_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj-1%7D%7D%7B%5Cpartial+net_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj-1%7D%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D+%5Ctag%7B1.10%7D+">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+O_%7Bj-1%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=E">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=O_j">
+<meta property="og:image" content="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D">
 <meta property="article:published_time" content="2022-02-13T10:58:26.000Z">
-<meta property="article:modified_time" content="2022-02-13T11:01:39.426Z">
+<meta property="article:modified_time" content="2022-02-13T11:11:54.596Z">
 <meta property="article:author" content="Jy Mao">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20160401202509000">
+<meta name="twitter:image" content="https://pic2.zhimg.com/80/v2-fb0b3f2f8d733e0f93a317ecffe2b201_720w.jpg">
   
   
   <title>反向传播Back Propagation - Jy Mao&#39;s Blog</title>
@@ -229,7 +239,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      913 字
+      532 字
     </span>
   
 
@@ -238,7 +248,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8 分钟
+      5 分钟
     </span>
   
 
@@ -270,75 +280,33 @@
             <h1 style="display: none">反向传播Back Propagation</h1>
             
             <div class="markdown-body">
-              <p>反向传播算法（Backpropagation）是目前用来训练人工神经网络（Artificial Neural Network，ANN）的最常用且最有效的算法。其主要思想是：</p>
-<p>（1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出层并输出结果，这是ANN的前向传播过程；</p>
-<p>（2）由于ANN的输出结果与实际结果有误差，则计算估计值与实际值之间的误差，并将该误差从输出层向隐藏层反向传播，直至传播到输入层；</p>
-<p>（3）在反向传播的过程中，根据误差调整各种参数的值；不断迭代上述过程，直至收敛。</p>
-<p>​    反向传播算法的思想比较容易理解，但具体的公式则要一步步推导，因此本文着重介绍公式的推导过程。</p>
-<h1 id="1-变量-定义"><a href="#1-变量-定义" class="headerlink" title="1. 变量*定义*"></a><strong>1. 变量*<em>定义*</em></strong></h1><p><img src="https://img-blog.csdn.net/20160401202509000" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    上图是一个三层人工神经网络，layer1至layer3分别是输入层、隐藏层和输出层。如图，先定义一些变量：</p>
-<p>​    <img src="https://img-blog.csdn.net/20160401202738142" srcset="/img/loading.gif" lazyload alt="img">表示第<img src="https://img-blog.csdn.net/20160401202834876" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img">层的第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202850705" srcset="/img/loading.gif" lazyload alt="img">个神经元连接到第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202901392" srcset="/img/loading.gif" lazyload alt="img">层的第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202912017" srcset="/img/loading.gif" lazyload alt="img">个神经元的权重；</p>
-<p><img src="" srcset="/img/loading.gif" lazyload alt="img">    <img src="https://img-blog.csdn.net/20160401202925814" srcset="/img/loading.gif" lazyload alt="img">表示第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202901392" srcset="/img/loading.gif" lazyload alt="img">层的第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202912017" srcset="/img/loading.gif" lazyload alt="img">个神经元的偏置；</p>
-<p>​    <img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202949221" srcset="/img/loading.gif" lazyload alt="img">表示第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202901392" srcset="/img/loading.gif" lazyload alt="img">层的第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202912017" srcset="/img/loading.gif" lazyload alt="img">个神经元的输入，即<img src="" srcset="/img/loading.gif" lazyload alt="img">：</p>
-<p><img src="https://img-blog.csdn.net/20160401203046815" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    <img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203055737" srcset="/img/loading.gif" lazyload alt="img">表示第<img src="https://img-blog.csdn.net/20160401202901392" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img">层的第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202912017" srcset="/img/loading.gif" lazyload alt="img">个神经元的输出，即<img src="" srcset="/img/loading.gif" lazyload alt="img">：</p>
-<p><img src="https://img-blog.csdn.net/20160401203135690" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    其中<img src="https://img-blog.csdn.net/20160401203156534" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img">表示激活函数。</p>
-<h1 id="2-代价函数"><a href="#2-代价函数" class="headerlink" title="2. 代价函数"></a><strong>2. 代价函数</strong></h1><p>​    代价函数被用来计算ANN输出值与实际值之间的误差。常用的代价函数是二次代价函数（Quadratic cost function）：</p>
-<p><img src="https://img-blog.csdn.net/20160401203231972" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    其中，<img src="https://img-blog.csdn.net/20160401203246065" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img">表示输入的样本，<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203254284" srcset="/img/loading.gif" lazyload alt="img">表示实际的分类，<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203304753" srcset="/img/loading.gif" lazyload alt="img">表示预测的输出，<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203313706" srcset="/img/loading.gif" lazyload alt="img">表示神经网络的最大层数。</p>
-<h1 id="3-公式及其推导"><a href="#3-公式及其推导" class="headerlink" title="3. 公式及其推导"></a><strong>3. 公式及其推导</strong></h1><p>​    本节将介绍反向传播算法用到的4个公式，并进行推导。<strong>如果不想了解公式推导过程，请直接看第4节的算法步骤。</strong></p>
-<p>​    首先，将第<img src="https://img-blog.csdn.net/20160401202901392" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img">层第<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401202912017" srcset="/img/loading.gif" lazyload alt="img">个神经元中产生的错误（即实际值与预测值之间的误差）定义为：</p>
-<p><img src="https://img-blog.csdn.net/20160401203433129" srcset="/img/loading.gif" lazyload alt="img"><img src="" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    本文将以一个输入样本为例进行说明，此时代价函数表示为：</p>
-<p><img src="https://img-blog.csdn.net/20160401203458879" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><strong>公式1（计算最后一层神经网络产生的错误）：</strong></p>
-<p><img src="https://img-blog.csdn.net/20160401203521035" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    其中，<img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203529707" srcset="/img/loading.gif" lazyload alt="img">表示Hadamard乘积，用于矩阵或向量之间点对点的乘法运算。 公式1的推导过程如下：</p>
-<p><img src="https://img-blog.csdn.net/20160401203552879" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><strong>公式2（由后往前，计算每一层神经网络产生的错误）：</strong></p>
-<p><img src="https://img-blog.csdn.net/20160401203604942" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    推导过程：</p>
-<p><img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20161230105754424" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><strong>公式3（计算权重的梯度）：</strong></p>
-<p><img src="https://img-blog.csdn.net/20160401203624973" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    推导过程：</p>
-<p><img src="https://img-blog.csdn.net/20160401203634161" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><strong>公式4（计算偏置的梯度）：</strong></p>
-<p><img src="https://img-blog.csdn.net/20160401203641989" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>​    推导过程：</p>
-<p><img src="https://img-blog.csdn.net/20160401203656833" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h1 id="4-反向传播算法伪代码"><a href="#4-反向传播算法伪代码" class="headerlink" title="4. 反向传播算法伪代码"></a><strong>4. 反向传播算法伪代码</strong></h1><ul>
-<li><p><strong>输入训练集</strong></p>
-</li>
-<li><p><strong><em>*对于训练集中的每个样本x，设置输入层（Input layer）对应的激活值*</em><img src="" srcset="/img/loading.gif" lazyload alt="img"><img src="https://img-blog.csdn.net/20160401203715973" srcset="/img/loading.gif" lazyload alt="img">：</strong></p>
-<ul>
-<li><strong>前向传播：</strong></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20160401203739849" srcset="/img/loading.gif" lazyload alt="img">， <img src="https://img-blog.csdn.net/20160401203806927" srcset="/img/loading.gif" lazyload alt="img"></p>
-<ul>
-<li><ul>
-<li><strong>计算输出层产生的错误：</strong></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20160401203820380" srcset="/img/loading.gif" lazyload alt="img"></p>
-<ul>
-<li><ul>
-<li><strong>反向传播错误：<img src="" srcset="/img/loading.gif" lazyload alt="img"></strong></li>
-</ul>
-</li>
-</ul>
-<p><img src="https://img-blog.csdn.net/20160401203833583" srcset="/img/loading.gif" lazyload alt="img"></p>
-<ul>
-<li><strong>使用梯度下降（gradient descent），训练参数：</strong></li>
-</ul>
-<p> <img src="https://img-blog.csdn.net/20160401203848037" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p><img src="https://img-blog.csdn.net/20160401203859349" srcset="/img/loading.gif" lazyload alt="img"></p>
+              <p>在利用<strong>梯度下降法</strong>对神经网络权重等参数进行训练时，需要利用<strong>反向传播</strong>去计算损失函数对权重参数的偏导数。</p>
+<h3 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h3><p>下面分析是如何反向传播的(分析时不考虑偏置项)，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-fb0b3f2f8d733e0f93a317ecffe2b201_720w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p>参考上图， ① 对于一个神经 <img src="https://www.zhihu.com/equation?tex=j" srcset="/img/loading.gif" lazyload alt="[公式]"> ，它的输出被定义为</p>
+<p><img src="https://www.zhihu.com/equation?tex=+O_j+=+%5Cvarphi(net_j)=%5Cvarphi(%5Csum_%7Bk=1%7D%5EN+w_%7Bkj%7DO_k)+%5Ctag%7B1.1%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>其中, <img src="https://www.zhihu.com/equation?tex=w_%7Bkj%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> 表示神经元 <img src="https://www.zhihu.com/equation?tex=k" srcset="/img/loading.gif" lazyload alt="[公式]"> 到 <img src="https://www.zhihu.com/equation?tex=j" srcset="/img/loading.gif" lazyload alt="[公式]"> 之间的权重， <img src="https://www.zhihu.com/equation?tex=O_k" srcset="/img/loading.gif" lazyload alt="[公式]"> 是上一层神经元的输出。 <img src="https://www.zhihu.com/equation?tex=%5Cvarphi" srcset="/img/loading.gif" lazyload alt="[公式]"> 为激活函数，这里取为 <img src="https://www.zhihu.com/equation?tex=logistic" srcset="/img/loading.gif" lazyload alt="[公式]"> 函数，</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cvarphi(z)=%5Cfrac%7B1%7D%7B1++e%5E%7B-z%7D+%7D+%5Ctag%7B1.2%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p><img src="https://www.zhihu.com/equation?tex=logistic" srcset="/img/loading.gif" lazyload alt="[公式]"> 函数的求导公式为，</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7Bd%5Cvarphi+%5Cleft(+z%5Cright)+%7D%7Bdz%7D=%5Cvarphi%5Cleft(+z%5Cright)+%5Cleft(+1-%5Cvarphi%5Cleft(+z%5Cright)+%5Cright)++%5Ctag%7B1.3%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>② 损失函数定义为，</p>
+<p><img src="https://www.zhihu.com/equation?tex=E=%5Cdfrac+%7B1%7D%7B2%7D%5Cleft(+t-y%5Cright)+%5E%7B2%7D+%5Ctag%7B1.4%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>其中， <img src="https://www.zhihu.com/equation?tex=y" srcset="/img/loading.gif" lazyload alt="[公式]"> 为输出层的输出， <img src="https://www.zhihu.com/equation?tex=t" srcset="/img/loading.gif" lazyload alt="[公式]"> 为期望输出。</p>
+<p>考虑 <img src="https://www.zhihu.com/equation?tex=w_%7Bkj%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> 对于 <img src="https://www.zhihu.com/equation?tex=E" srcset="/img/loading.gif" lazyload alt="[公式]"> 的影响，是 <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 间接影响的，因此可得下面的公式(这里假设 <img src="https://www.zhihu.com/equation?tex=j" srcset="/img/loading.gif" lazyload alt="[公式]"> 前一层神经元为 <img src="https://www.zhihu.com/equation?tex=i" srcset="/img/loading.gif" lazyload alt="[公式]"> ，即求对 <img src="https://www.zhihu.com/equation?tex=w_%7Bij%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> 的偏导数)，</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bij%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj%7D%7D%7B%5Cpartial+net_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj%7D%7D%7B%5Cpartial+w_%7Bij%7D%7D+%5Ctag%7B1.5%7D+" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>其中，后两个偏导数可以直接求出， <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B%5Cpartial+O_%7Bj%7D%7D%7B%5Cpartial+net_%7Bj%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> 参考公式 <img src="https://www.zhihu.com/equation?tex=%7B1.3%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ， <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+net_%7Bj%7D%7D%7B%5Cpartial+w_%7Bij%7D%7D=O_i" srcset="/img/loading.gif" lazyload alt="[公式]"> 。但是此时， <img src="https://www.zhihu.com/equation?tex=%5Cdfrac%7B%5Cpartial+E%7D%7B%5Cpartial+%7BO_j%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，依然无法求出。不过如果 <img src="https://www.zhihu.com/equation?tex=j" srcset="/img/loading.gif" lazyload alt="[公式]"> 是输出层，因为 <img src="https://www.zhihu.com/equation?tex=O_j=y" srcset="/img/loading.gif" lazyload alt="[公式]"> ，此时可求出 <img src="https://www.zhihu.com/equation?tex=E" srcset="/img/loading.gif" lazyload alt="[公式]"> 对 <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 的偏导数，</p>
+<p><img src="https://www.zhihu.com/equation?tex=+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+y%7D=%5Cdfrac+%7B%5Cpartial+%7D%7B%5Cpartial+y%7D%5Cdfrac+%7B1%7D%7B2%7D%5Cleft(+t-y%5Cright)+%5E%7B2%7D=y-t+%5Ctag%7B1.6%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>下面就到了最关键的一步，此时对于非输出层，我们无法直接求出 <img src="https://www.zhihu.com/equation?tex=%5Cfrac%7B%5Cpartial+E%7D%7B%5Cpartial+%7BO_j%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，考虑将 <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 对 <img src="https://www.zhihu.com/equation?tex=E" srcset="/img/loading.gif" lazyload alt="[公式]"> 的作用向 <img src="https://www.zhihu.com/equation?tex=j" srcset="/img/loading.gif" lazyload alt="[公式]"> 的下一层迭代，我们把 <img src="https://www.zhihu.com/equation?tex=E" srcset="/img/loading.gif" lazyload alt="[公式]"> 考虑成一个输入由 <img src="https://www.zhihu.com/equation?tex=L=u,v+%5Cdots,w" srcset="/img/loading.gif" lazyload alt="[公式]"> 这些神经元组成的函数， <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 是 <img src="https://www.zhihu.com/equation?tex=u,v,w" srcset="/img/loading.gif" lazyload alt="[公式]"> 这些神经元的输入， <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 直接构成了对 <img src="https://www.zhihu.com/equation?tex=net_u,net_v,net_w" srcset="/img/loading.gif" lazyload alt="[公式]"> 的影响。</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%5Cleft(+O_%7Bj%7D%5Cright)+%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Cdfrac+%7B%5Cpartial+E%5Cleft(+net_u,net_v,%5Cldots+,net_%7Bw%7D%5Cright)+%7D%7B%5Cpartial+O_%7Bj%7D%7D+%5Ctag%7B1.7%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>利用全微分形式，可以获取到一个递归方程，</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D=%5Csum+%7Bl%5Cin+L%7D%5Cleft(+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+net%7Bl%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bl%7D%7D%7B%5Cpartial+O_j%7D%5Cright)+=%5Csum+%7Bl%5Cin+L%7D%5Cleft(+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_l%7D%5Cdfrac+%7B%5Cpartial+O_l%7D%7B%5Cpartial+net_l%7Dw%7Bjl%7D%5Cright)+%5Ctag%7B1.8%7D+" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>通过递归方程，我们可以从输出层开始对需要求的偏导数进行递归，因此得名反向传播。</p>
+<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>下面以一个简单的网络来对上面的反向传播结果进行验证，如下图所示，</p>
+<p><img src="https://pic2.zhimg.com/80/v2-b5acfede3399a73e46e483264da28ebd_720w.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://www.zhihu.com/equation?tex=+%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-1,j%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_j%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+w_%7Bj-1,j%7D%7D+%5Ctag%7B1.9%7D" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>其中，上式 <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_j%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+y%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，三项偏导数都可求出。接着求 <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，</p>
+<p><img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj-1%7D%7D%7B%5Cpartial+net_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj-1%7D%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+O_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+O_%7Bj-1%7D%7D%7B%5Cpartial+net_%7Bj-1%7D%7D%5Cdfrac+%7B%5Cpartial+net_%7Bj-1%7D%7D%7B%5Cpartial+w_%7Bj-2,j-1%7D%7D+%5Ctag%7B1.10%7D+" srcset="/img/loading.gif" lazyload alt="[公式]"></p>
+<p>在上式中， <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D%5Cdfrac+%7B%5Cpartial+O_j%7D%7B%5Cpartial+net_j%7D%5Cdfrac+%7B%5Cpartial+net_j%7D%7B%5Cpartial+O_%7Bj-1%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，求 <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj-1%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> 时先求出 <img src="https://www.zhihu.com/equation?tex=E" srcset="/img/loading.gif" lazyload alt="[公式]"> 对上一层的 <img src="https://www.zhihu.com/equation?tex=O_j" srcset="/img/loading.gif" lazyload alt="[公式]"> 的偏导数 <img src="https://www.zhihu.com/equation?tex=%5Cdfrac+%7B%5Cpartial+E%7D%7B%5Cpartial+O_%7Bj%7D%7D" srcset="/img/loading.gif" lazyload alt="[公式]"> ，公式(1.10)和(1.8)完全对应，<strong>上述过程充分体现了链式法则</strong>。</p>
 
             </div>
             <hr>
