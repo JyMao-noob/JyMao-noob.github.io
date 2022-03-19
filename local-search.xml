@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>快速幂</title>
+    <link href="/2022/03/19/%E5%BF%AB%E9%80%9F%E5%B9%82/"/>
+    <url>/2022/03/19/%E5%BF%AB%E9%80%9F%E5%B9%82/</url>
+    
+    <content type="html"><![CDATA[<p>​        使用折半计算，每次把n缩小一半，这样n最终会缩小到0，任何数的0次方都为1，这时候我们再往回乘，如果此时n是偶数，直接把上次递归得到的值算个平方返回即可，如果是奇数，则还需要乘上个x的值。还有一点需要引起我们的注意的是n有可能为负数，对于n是负数的情况，我们可以先用其绝对值计算出一个结果再取其倒数即可。我们让i初始化为n，然后看i是否是2的倍数，是的话x乘以自己，否则res乘以x，i每次循环缩小一半，直到为0停止循环。最后看n的正负，如果为负，返回其倒数。</p><figure class="highlight c++"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">double</span> <span class="hljs-title">myPow</span><span class="hljs-params">(<span class="hljs-keyword">double</span> x, <span class="hljs-keyword">int</span> n)</span> </span>&#123;<br>        <span class="hljs-keyword">double</span> res = <span class="hljs-number">1.0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = n; i != <span class="hljs-number">0</span>; i /= <span class="hljs-number">2</span>)&#123;<br>            <span class="hljs-keyword">if</span>(i % <span class="hljs-number">2</span> != <span class="hljs-number">0</span>)&#123;<br>                res *= x;<br>            &#125;<br>            x *= x;<br>        &#125;<br>        <span class="hljs-keyword">return</span>  n &lt; <span class="hljs-number">0</span> ? <span class="hljs-number">1</span> / res : res;<br>    &#125;<br>&#125; <br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>哈希表理论基础</title>
     <link href="/2022/03/15/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/"/>
     <url>/2022/03/15/%E5%93%88%E5%B8%8C%E8%A1%A8%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80/</url>
