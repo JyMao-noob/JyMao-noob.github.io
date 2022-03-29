@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>考试的最大困扰度</title>
+    <link href="/2022/03/29/%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/"/>
+    <url>/2022/03/29/%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>一位老师正在出一场由 n 道判断题构成的考试，每道题的答案为 true （用 ‘T’ 表示）或者 false （用 ‘F’ 表示）。老师想增加学生对自己做出答案的不确定性，方法是 最大化 有 连续相同 结果的题数。（也就是连续出现 true 或者连续出现 false）。</p><p>给你一个字符串 answerKey ，其中 answerKey[i] 是第 i 个问题的正确结果。除此以外，还给你一个整数 k ，表示你能进行以下操作的最多次数：</p><p>每次操作中，将问题的正确答案改为 ‘T’ 或者 ‘F’ （也就是将 answerKey[i] 改为 ‘T’ 或者 ‘F’ ）。<br>请你返回在不超过 k 次操作的情况下，最大 连续 ‘T’ 或者 ‘F’ 的数目。</p> <figure class="highlight 1c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs 1c">示例 <span class="hljs-number">1</span>：<br>输入：answerKey = <span class="hljs-string">&quot;TTFF&quot;</span>, k = <span class="hljs-number">2</span><br>输出：<span class="hljs-number">4</span><br>解释：我们可以将两个 &#x27;F&#x27; 都变为 &#x27;T&#x27; ，得到 answerKey = <span class="hljs-string">&quot;TTTT&quot;</span> 。<br>总共有四个连续的 &#x27;T&#x27; 。<br></code></pre></td></tr></table></figure><h2 id="题解（滑动窗口）"><a href="#题解（滑动窗口）" class="headerlink" title="题解（滑动窗口）"></a>题解（滑动窗口）</h2><p>题目求修改次数不超过 kk 的前提下，连续段 ‘T’ 或 ‘F’ 的最大长度。</p><p>等价于求一个包含 ‘F’ 或者 ‘T’ 的个数不超过 kk 的最大长度窗口。</p><p>假定存在一个 int getCnt(char c) 函数，返回包含字符 c 数量不超过 kk 的最大窗口长度，那么最终 max(getCnt(‘T’), getCnt(‘F’)) 即是答案。</p><p>其中 getCnt 函数的实现可以使用「滑动窗口」：使用 j 和 i 分别代表窗口的左右端点，cnt 为区间 [j, i] 中的字符 c 的数量，每次右端点 i移动时，若满足 s[i] = c，让 cnt 自增，当 cnt &gt; k 时，使左端点 j 往右移动，同时更新 cnt，直到 [j, i] 区间恢复合法性（包含字符 c 的数量 cnt 不超过 k 个）。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getCnt</span><span class="hljs-params">(string answerKey,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">char</span> ch)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> n=answerKey.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>,cnt=<span class="hljs-number">0</span>;j&lt;n;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(answerKey[j]==ch) cnt++;<br>            <span class="hljs-keyword">while</span>(cnt&gt;k)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(answerKey[i]==ch) cnt--;<br>                i++;<br>            &#125;<br>            ans=<span class="hljs-built_in">max</span>(ans,j-i+<span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxConsecutiveAnswers</span><span class="hljs-params">(string answerKey, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-built_in">getCnt</span>(answerKey,k,<span class="hljs-string">&#x27;T&#x27;</span>),<span class="hljs-built_in">getCnt</span>(answerKey,k,<span class="hljs-string">&#x27;F&#x27;</span>));<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure><ul><li>时间复杂度：O(n)</li><li>空间复杂度：O(1)</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>不同路径</title>
     <link href="/2022/03/27/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/"/>
     <url>/2022/03/27/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/</url>
