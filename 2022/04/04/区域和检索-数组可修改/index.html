@@ -16,21 +16,21 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目一位老师正在出一场由 n 道判断题构成的考试，每道题的答案为 true （用 ‘T’ 表示）或者 false （用 ‘F’ 表示）。老师想增加学生对自己做出答案的不确定性，方法是 最大化 有 连续相同 结果的题数。（也就是连续出现 true 或者连续出现 false）。 给你一个字符串 answerKey ，其中 answerKey[i] 是第 i 个问题的正确结果。除此以外，还给你一个整数">
+    <meta name="description" content="题目给你一个数组 nums ，请你完成两类查询。 其中一类查询要求 更新 数组 nums 下标对应的值另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;&#x3D; right实现 NumArray 类： NumArray(int[] nums) 用整数数组 nums 初始化对象void update(int index,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="考试的最大困扰度">
-<meta property="og:url" content="http://example.com/2022/03/29/%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/index.html">
+<meta property="og:title" content="区域和检索-数组可修改">
+<meta property="og:url" content="http://example.com/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="题目一位老师正在出一场由 n 道判断题构成的考试，每道题的答案为 true （用 ‘T’ 表示）或者 false （用 ‘F’ 表示）。老师想增加学生对自己做出答案的不确定性，方法是 最大化 有 连续相同 结果的题数。（也就是连续出现 true 或者连续出现 false）。 给你一个字符串 answerKey ，其中 answerKey[i] 是第 i 个问题的正确结果。除此以外，还给你一个整数">
+<meta property="og:description" content="题目给你一个数组 nums ，请你完成两类查询。 其中一类查询要求 更新 数组 nums 下标对应的值另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;&#x3D; right实现 NumArray 类： NumArray(int[] nums) 用整数数组 nums 初始化对象void update(int index,">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-03-29T02:57:04.000Z">
-<meta property="article:modified_time" content="2022-03-29T03:00:50.079Z">
+<meta property="article:published_time" content="2022-04-04T07:14:45.000Z">
+<meta property="article:modified_time" content="2022-04-04T07:19:17.257Z">
 <meta property="article:author" content="Jy Mao">
-<meta property="article:tag" content="滑动窗口">
+<meta property="article:tag" content="树状数组">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>考试的最大困扰度 - Jy Mao&#39;s Blog</title>
+  <title>区域和检索-数组可修改 - Jy Mao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="考试的最大困扰度">
+            <span class="h2" id="subtitle" title="区域和检索-数组可修改">
               
             </span>
 
@@ -174,8 +174,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-29 10:57" pubdate>
-        2022年3月29日 上午
+      <time datetime="2022-04-04 15:14" pubdate>
+        2022年4月4日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.2k 字
+      1.8k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10 分钟
+      15 分钟
     </span>
   
 
@@ -223,25 +223,36 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">考试的最大困扰度</h1>
+            <h1 style="display: none">区域和检索-数组可修改</h1>
             
             <div class="markdown-body">
-              <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>一位老师正在出一场由 n 道判断题构成的考试，每道题的答案为 true （用 ‘T’ 表示）或者 false （用 ‘F’ 表示）。老师想增加学生对自己做出答案的不确定性，方法是 最大化 有 连续相同 结果的题数。（也就是连续出现 true 或者连续出现 false）。</p>
-<p>给你一个字符串 answerKey ，其中 answerKey[i] 是第 i 个问题的正确结果。除此以外，还给你一个整数 k ，表示你能进行以下操作的最多次数：</p>
-<p>每次操作中，将问题的正确答案改为 ‘T’ 或者 ‘F’ （也就是将 answerKey[i] 改为 ‘T’ 或者 ‘F’ ）。<br>请你返回在不超过 k 次操作的情况下，最大 连续 ‘T’ 或者 ‘F’ 的数目。</p>
- <figure class="highlight 1c"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><pre><code class="hljs 1c">示例 <span class="hljs-number">1</span>：<br>输入：answerKey = <span class="hljs-string">&quot;TTFF&quot;</span>, k = <span class="hljs-number">2</span><br>输出：<span class="hljs-number">4</span><br>解释：我们可以将两个 &#x27;F&#x27; 都变为 &#x27;T&#x27; ，得到 answerKey = <span class="hljs-string">&quot;TTTT&quot;</span> 。<br>总共有四个连续的 &#x27;T&#x27; 。<br></code></pre></td></tr></table></figure>
-
-
-
-<h2 id="题解（滑动窗口）"><a href="#题解（滑动窗口）" class="headerlink" title="题解（滑动窗口）"></a>题解（滑动窗口）</h2><p>题目求修改次数不超过 kk 的前提下，连续段 ‘T’ 或 ‘F’ 的最大长度。</p>
-<p>等价于求一个包含 ‘F’ 或者 ‘T’ 的个数不超过 kk 的最大长度窗口。</p>
-<p>假定存在一个 int getCnt(char c) 函数，返回包含字符 c 数量不超过 kk 的最大窗口长度，那么最终 max(getCnt(‘T’), getCnt(‘F’)) 即是答案。</p>
-<p>其中 getCnt 函数的实现可以使用「滑动窗口」：使用 j 和 i 分别代表窗口的左右端点，cnt 为区间 [j, i] 中的字符 c 的数量，每次右端点 i移动时，若满足 s[i] = c，让 cnt 自增，当 cnt &gt; k 时，使左端点 j 往右移动，同时更新 cnt，直到 [j, i] 区间恢复合法性（包含字符 c 的数量 cnt 不超过 k 个）。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getCnt</span><span class="hljs-params">(string answerKey,<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">char</span> ch)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">int</span> n=answerKey.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>,j=<span class="hljs-number">0</span>,cnt=<span class="hljs-number">0</span>;j&lt;n;j++)<br>        &#123;<br>            <span class="hljs-keyword">if</span>(answerKey[j]==ch) cnt++;<br>            <span class="hljs-keyword">while</span>(cnt&gt;k)<br>            &#123;<br>                <span class="hljs-keyword">if</span>(answerKey[i]==ch) cnt--;<br>                i++;<br>            &#125;<br>            ans=<span class="hljs-built_in">max</span>(ans,j-i+<span class="hljs-number">1</span>);<br>        &#125;<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxConsecutiveAnswers</span><span class="hljs-params">(string answerKey, <span class="hljs-keyword">int</span> k)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(<span class="hljs-built_in">getCnt</span>(answerKey,k,<span class="hljs-string">&#x27;T&#x27;</span>),<span class="hljs-built_in">getCnt</span>(answerKey,k,<span class="hljs-string">&#x27;F&#x27;</span>));<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+              <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给你一个数组 nums ，请你完成两类查询。</p>
+<p>其中一类查询要求 更新 数组 nums 下标对应的值<br>另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;= right<br>实现 NumArray 类：</p>
+<p>NumArray(int[] nums) 用整数数组 nums 初始化对象<br>void update(int index, int val) 将 nums[index] 的值 更新 为 val<br>int sumRange(int left, int right) 返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 （即，nums[left] + nums[left + 1], …, nums[right]）</p>
+<p>提示：</p>
+<p>1 &lt;= nums.length &lt;= 3 * 10e4<br>-100 &lt;= nums[i] &lt;= 100<br>0 &lt;= index &lt; nums.length<br>-100 &lt;= val &lt;= 100<br>0 &lt;= left &lt;= right &lt; nums.length<br>调用 update 和 sumRange 方法次数不大于 3 * 10e4 </p>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>针对不同的题目，我们有不同的方案可以选择（假设我们有一个数组）：</p>
+<ul>
+<li>数组不变，求区间和：「前缀和」、「树状数组」、「线段树」</li>
+<li>多次修改某个数（单点），求区间和：「树状数组」、「线段树」</li>
+<li>多次修改某个区间，输出最终结果：「差分」</li>
+<li>多次修改某个区间，求区间和：「线段树」、「树状数组」（看修改区间范围大小）</li>
+<li>多次将某个区间变成同一个数，求区间和：「线段树」、「树状数组」（看修改区间范围大小）</li>
+</ul>
+<p>总结一下，我们应该按这样的优先级进行考虑：</p>
+<ol>
+<li>简单求区间和，用「前缀和」</li>
+<li>多次将某个区间变成同一个数，用「线段树」</li>
+<li>其他情况，用「树状数组」</li>
+</ol>
+<p>本题我们采用树状数组。</p>
+<p>「树状数组」本身是一个很简单的数据结构，但是要搞懂其为什么可以这样「查询」&amp;「更新」还是比较困难的（特别是为什么可以这样更新），往往需要从「二进制分解」进行出发理解。</p>
+<p>因此直接提供「树状数组」的代码，直接当做模板背过即可。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumArray</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; tree;<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lowbit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> x &amp; (-x);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=x;i&gt;<span class="hljs-number">0</span>;i-=<span class="hljs-built_in">lowbit</span>(i))<br>            ans+=tree[i];<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> u)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=x;i&lt;=n;i+=<span class="hljs-built_in">lowbit</span>(i))<br>            tree[i]+=u;<br>    &#125;<br><br>    vector&lt;<span class="hljs-keyword">int</span>&gt; nums;<br>    <span class="hljs-keyword">int</span> n;<br>    <br>   <span class="hljs-built_in">NumArray</span>(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums) &#123;<br>        <span class="hljs-keyword">this</span>-&gt;nums = nums;<br>        n = nums.<span class="hljs-built_in">size</span>();<br>        tree.<span class="hljs-built_in">resize</span>(n+<span class="hljs-number">1</span>, <span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>            <span class="hljs-built_in">add</span>(i+<span class="hljs-number">1</span>, nums[i]);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> val)</span> </span>&#123;<br>        <span class="hljs-built_in">add</span>(index+<span class="hljs-number">1</span>, val-nums[index]);<br>        nums[index] = val;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumRange</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">query</span>(right+<span class="hljs-number">1</span>) - <span class="hljs-built_in">query</span>(left);<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your NumArray object will be instantiated and called as such:</span><br><span class="hljs-comment"> * NumArray* obj = new NumArray(nums);</span><br><span class="hljs-comment"> * obj-&gt;update(index,val);</span><br><span class="hljs-comment"> * int param_2 = obj-&gt;sumRange(left,right);</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
 
 <ul>
-<li>时间复杂度：O(n)</li>
-<li>空间复杂度：O(1)</li>
+<li>时间复杂度：add 操作和 query 的复杂度都是 O(logn)，因此构建数组的复杂度为 O(nlogn)。整体复杂度为 O(nlogn)</li>
+<li>空间复杂度：O(n)</li>
 </ul>
 
             </div>
@@ -253,7 +264,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/">滑动窗口</a>
+                      <a class="hover-with-bg" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>
                     
                   </div>
                 
@@ -270,18 +281,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">区域和检索-数组可修改</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/27/%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/">
-                        <span class="hidden-mobile">不同路径</span>
+                      <a href="/2022/03/29/%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/">
+                        <span class="hidden-mobile">考试的最大困扰度</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
