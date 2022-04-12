@@ -16,21 +16,21 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="题目给你一个数组 nums ，请你完成两类查询。 其中一类查询要求 更新 数组 nums 下标对应的值另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;&#x3D; right实现 NumArray 类： NumArray(int[] nums) 用整数数组 nums 初始化对象void update(int index,">
+    <meta name="description" content="题目给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。 从点 (x, y) 可以转换到 (x, x+y)  或者 (x+y, y)。 123456789示例 1:输入: sx &#x3D; 1, sy &#x3D; 1, tx &#x3D; 3, ty &#x3D; 5输出: true解释:可以通过以下一系列转换从起点转换">
 <meta property="og:type" content="article">
-<meta property="og:title" content="区域和检索-数组可修改">
-<meta property="og:url" content="http://example.com/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/index.html">
+<meta property="og:title" content="到达终点">
+<meta property="og:url" content="http://example.com/2022/04/12/%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="题目给你一个数组 nums ，请你完成两类查询。 其中一类查询要求 更新 数组 nums 下标对应的值另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;&#x3D; right实现 NumArray 类： NumArray(int[] nums) 用整数数组 nums 初始化对象void update(int index,">
+<meta property="og:description" content="题目给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。 从点 (x, y) 可以转换到 (x, x+y)  或者 (x+y, y)。 123456789示例 1:输入: sx &#x3D; 1, sy &#x3D; 1, tx &#x3D; 3, ty &#x3D; 5输出: true解释:可以通过以下一系列转换从起点转换">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-04T07:14:45.000Z">
-<meta property="article:modified_time" content="2022-04-04T07:19:17.257Z">
+<meta property="article:published_time" content="2022-04-12T08:10:34.000Z">
+<meta property="article:modified_time" content="2022-04-12T08:14:36.353Z">
 <meta property="article:author" content="Jy Mao">
-<meta property="article:tag" content="树状数组">
+<meta property="article:tag" content="辗转相除">
 <meta name="twitter:card" content="summary_large_image">
   
   
-  <title>区域和检索-数组可修改 - Jy Mao&#39;s Blog</title>
+  <title>到达终点 - Jy Mao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -164,7 +164,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="区域和检索-数组可修改">
+            <span class="h2" id="subtitle" title="到达终点">
               
             </span>
 
@@ -174,8 +174,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-04 15:14" pubdate>
-        2022年4月4日 下午
+      <time datetime="2022-04-12 16:10" pubdate>
+        2022年4月12日 下午
       </time>
     </span>
   
@@ -185,7 +185,7 @@
   
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.8k 字
+      930 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15 分钟
+      8 分钟
     </span>
   
 
@@ -223,37 +223,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">区域和检索-数组可修改</h1>
+            <h1 style="display: none">到达终点</h1>
             
             <div class="markdown-body">
-              <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给你一个数组 nums ，请你完成两类查询。</p>
-<p>其中一类查询要求 更新 数组 nums 下标对应的值<br>另一类查询要求返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 ，其中 left &lt;= right<br>实现 NumArray 类：</p>
-<p>NumArray(int[] nums) 用整数数组 nums 初始化对象<br>void update(int index, int val) 将 nums[index] 的值 更新 为 val<br>int sumRange(int left, int right) 返回数组 nums 中索引 left 和索引 right 之间（ 包含 ）的nums元素的 和 （即，nums[left] + nums[left + 1], …, nums[right]）</p>
-<p>提示：</p>
-<p>1 &lt;= nums.length &lt;= 3 * 10e4<br>-100 &lt;= nums[i] &lt;= 100<br>0 &lt;= index &lt; nums.length<br>-100 &lt;= val &lt;= 100<br>0 &lt;= left &lt;= right &lt; nums.length<br>调用 update 和 sumRange 方法次数不大于 3 * 10e4 </p>
-<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>针对不同的题目，我们有不同的方案可以选择（假设我们有一个数组）：</p>
-<ul>
-<li>数组不变，求区间和：「前缀和」、「树状数组」、「线段树」</li>
-<li>多次修改某个数（单点），求区间和：「树状数组」、「线段树」</li>
-<li>多次修改某个区间，输出最终结果：「差分」</li>
-<li>多次修改某个区间，求区间和：「线段树」、「树状数组」（看修改区间范围大小）</li>
-<li>多次将某个区间变成同一个数，求区间和：「线段树」、「树状数组」（看修改区间范围大小）</li>
-</ul>
-<p>总结一下，我们应该按这样的优先级进行考虑：</p>
-<ol>
-<li>简单求区间和，用「前缀和」</li>
-<li>多次将某个区间变成同一个数，用「线段树」</li>
-<li>其他情况，用「树状数组」</li>
-</ol>
-<p>本题我们采用树状数组。</p>
-<p>「树状数组」本身是一个很简单的数据结构，但是要搞懂其为什么可以这样「查询」&amp;「更新」还是比较困难的（特别是为什么可以这样更新），往往需要从「二进制分解」进行出发理解。</p>
-<p>因此直接提供「树状数组」的代码，直接当做模板背过即可。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight cpp"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></div></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumArray</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    vector&lt;<span class="hljs-keyword">int</span>&gt; tree;<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">lowbit</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">return</span> x &amp; (-x);<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">query</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">int</span> ans=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=x;i&gt;<span class="hljs-number">0</span>;i-=<span class="hljs-built_in">lowbit</span>(i))<br>            ans+=tree[i];<br>        <span class="hljs-keyword">return</span> ans;<br>    &#125;<br><br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x,<span class="hljs-keyword">int</span> u)</span></span><br><span class="hljs-function">    </span>&#123;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=x;i&lt;=n;i+=<span class="hljs-built_in">lowbit</span>(i))<br>            tree[i]+=u;<br>    &#125;<br><br>    vector&lt;<span class="hljs-keyword">int</span>&gt; nums;<br>    <span class="hljs-keyword">int</span> n;<br>    <br>   <span class="hljs-built_in">NumArray</span>(vector&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums) &#123;<br>        <span class="hljs-keyword">this</span>-&gt;nums = nums;<br>        n = nums.<span class="hljs-built_in">size</span>();<br>        tree.<span class="hljs-built_in">resize</span>(n+<span class="hljs-number">1</span>, <span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++)<br>            <span class="hljs-built_in">add</span>(i+<span class="hljs-number">1</span>, nums[i]);<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">update</span><span class="hljs-params">(<span class="hljs-keyword">int</span> index, <span class="hljs-keyword">int</span> val)</span> </span>&#123;<br>        <span class="hljs-built_in">add</span>(index+<span class="hljs-number">1</span>, val-nums[index]);<br>        nums[index] = val;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">sumRange</span><span class="hljs-params">(<span class="hljs-keyword">int</span> left, <span class="hljs-keyword">int</span> right)</span> </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">query</span>(right+<span class="hljs-number">1</span>) - <span class="hljs-built_in">query</span>(left);<br>    &#125;<br>&#125;;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your NumArray object will be instantiated and called as such:</span><br><span class="hljs-comment"> * NumArray* obj = new NumArray(nums);</span><br><span class="hljs-comment"> * obj-&gt;update(index,val);</span><br><span class="hljs-comment"> * int param_2 = obj-&gt;sumRange(left,right);</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+              <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。</p>
+<p>从点 (x, y) 可以转换到 (x, x+y)  或者 (x+y, y)。</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs livescript">示例 <span class="hljs-number">1</span>:<br><br>输入: sx = <span class="hljs-number">1</span>, sy = <span class="hljs-number">1</span>, tx = <span class="hljs-number">3</span>, ty = <span class="hljs-number">5</span><br>输出: <span class="hljs-literal">true</span><br>解释:<br>可以通过以下一系列转换从起点转换到终点：<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)</span> -&gt;</span> (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span> -&gt;</span> (<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)</span> -&gt;</span> (<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)<br></code></pre></td></tr></table></figure>
 
-<ul>
-<li>时间复杂度：add 操作和 query 的复杂度都是 O(logn)，因此构建数组的复杂度为 O(nlogn)。整体复杂度为 O(nlogn)</li>
-<li>空间复杂度：O(n)</li>
-</ul>
+
+
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>辗转相除法。</p>
+<p>首先容易知道：如果开始或者结束，数对的两个数相同，那么只有一种可能：整个数对没有经过转换，否则会出现 0，而题目中否定了这种情况的出现。</p>
+<p>其次，通过观察发现一个重要的结论：如果一个对是 (a, b)，那么它之前必然是 (a, b - a) 或者 (a- b, b)。且由于整个过程没有出现负数，所以必然是 a, b 中较大者减去较小者，这表明之前两种情况只有一种是正确的。我们可以一直沿着这两种情况中的一种走，直到新的 a, b的不等关系交换。</p>
+<p>而只有当新的 a’ 变成 a mod b（或者新的 b’变成 b mod a）这种不等关系才会交换，我们可以利用这一点加速程序。剩下的就是简单的边界条件的判断。</p>
+<p>时间复杂度：O( log max{tx,ty} )。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">reachingPoints</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sx, <span class="hljs-keyword">int</span> sy, <span class="hljs-keyword">int</span> tx, <span class="hljs-keyword">int</span> ty)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (tx &lt; sx || ty &lt; sy) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> (tx &gt; ty) &#123;<br>            <span class="hljs-keyword">if</span> (sy == ty)    <br>                <span class="hljs-keyword">return</span> sx &gt;= (tx % ty) &amp;&amp; (tx - sx) % sy == <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">reachingPoints</span>(sx, sy, tx % ty, ty);<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tx &lt; ty)&#123;<br>            <span class="hljs-keyword">if</span> (sx == tx)    <br>                <span class="hljs-keyword">return</span> sy &gt;= (ty % tx) &amp;&amp; (ty - sy) % sx == <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">reachingPoints</span>(sx, sy, tx, ty % tx);<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> tx == sx &amp;&amp; ty == sy;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+
+
 
             </div>
             <hr>
@@ -264,7 +251,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">树状数组</a>
+                      <a class="hover-with-bg" href="/tags/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4/">辗转相除</a>
                     
                   </div>
                 
@@ -281,18 +268,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/12/%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">到达终点</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/29/%E8%80%83%E8%AF%95%E7%9A%84%E6%9C%80%E5%A4%A7%E5%9B%B0%E6%89%B0%E5%BA%A6/">
-                        <span class="hidden-mobile">考试的最大困扰度</span>
+                      <a href="/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/">
+                        <span class="hidden-mobile">区域和检索-数组可修改</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

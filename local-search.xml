@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>到达终点</title>
+    <link href="/2022/04/12/%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/"/>
+    <url>/2022/04/12/%E5%88%B0%E8%BE%BE%E7%BB%88%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>给定四个整数 sx , sy ，tx 和 ty，如果通过一系列的转换可以从起点 (sx, sy) 到达终点 (tx, ty)，则返回 true，否则返回 false。</p><p>从点 (x, y) 可以转换到 (x, x+y)  或者 (x+y, y)。</p><figure class="highlight livescript"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><pre><code class="hljs livescript">示例 <span class="hljs-number">1</span>:<br><br>输入: sx = <span class="hljs-number">1</span>, sy = <span class="hljs-number">1</span>, tx = <span class="hljs-number">3</span>, ty = <span class="hljs-number">5</span><br>输出: <span class="hljs-literal">true</span><br>解释:<br>可以通过以下一系列转换从起点转换到终点：<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>)</span> -&gt;</span> (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>)</span> -&gt;</span> (<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)<br><span class="hljs-function"><span class="hljs-params">(<span class="hljs-number">3</span>, <span class="hljs-number">2</span>)</span> -&gt;</span> (<span class="hljs-number">3</span>, <span class="hljs-number">5</span>)<br></code></pre></td></tr></table></figure><h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><p>辗转相除法。</p><p>首先容易知道：如果开始或者结束，数对的两个数相同，那么只有一种可能：整个数对没有经过转换，否则会出现 0，而题目中否定了这种情况的出现。</p><p>其次，通过观察发现一个重要的结论：如果一个对是 (a, b)，那么它之前必然是 (a, b - a) 或者 (a- b, b)。且由于整个过程没有出现负数，所以必然是 a, b 中较大者减去较小者，这表明之前两种情况只有一种是正确的。我们可以一直沿着这两种情况中的一种走，直到新的 a, b的不等关系交换。</p><p>而只有当新的 a’ 变成 a mod b（或者新的 b’变成 b mod a）这种不等关系才会交换，我们可以利用这一点加速程序。剩下的就是简单的边界条件的判断。</p><p>时间复杂度：O( log max{tx,ty} )。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">reachingPoints</span><span class="hljs-params">(<span class="hljs-keyword">int</span> sx, <span class="hljs-keyword">int</span> sy, <span class="hljs-keyword">int</span> tx, <span class="hljs-keyword">int</span> ty)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span> (tx &lt; sx || ty &lt; sy) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">if</span> (tx &gt; ty) &#123;<br>            <span class="hljs-keyword">if</span> (sy == ty)    <br>                <span class="hljs-keyword">return</span> sx &gt;= (tx % ty) &amp;&amp; (tx - sx) % sy == <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">reachingPoints</span>(sx, sy, tx % ty, ty);<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (tx &lt; ty)&#123;<br>            <span class="hljs-keyword">if</span> (sx == tx)    <br>                <span class="hljs-keyword">return</span> sy &gt;= (ty % tx) &amp;&amp; (ty - sy) % sx == <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">return</span> <span class="hljs-built_in">reachingPoints</span>(sx, sy, tx, ty % tx);<br>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> tx == sx &amp;&amp; ty == sy;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>辗转相除</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>区域和检索-数组可修改</title>
     <link href="/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/"/>
     <url>/2022/04/04/%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E5%8F%AF%E4%BF%AE%E6%94%B9/</url>
