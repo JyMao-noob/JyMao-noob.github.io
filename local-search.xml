@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>机器学习评价指标含义</title>
+    <link href="/2022/05/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%90%AB%E4%B9%89/"/>
+    <url>/2022/05/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%90%AB%E4%B9%89/</url>
+    
+    <content type="html"><![CDATA[<h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p><img src="https://img-blog.csdnimg.cn/202009031021143.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyNjEzNzY5,size_16,color_FFFFFF,t_70#pic_center" alt="img"></p><p>TP、FP、FN、TN可以理解为</p><ul><li>TP：预测为1，实际为1，预测正确。</li><li>FP：预测为1，实际为0，预测错误。</li><li>FN：预测为0，实际为1，预测错误。</li><li>TN：预测为0，实际为0，预测正确。<h2 id="准确率"><a href="#准确率" class="headerlink" title="准确率"></a>准确率</h2>预测正确的结果占总样本的百分比，表达式为：</li></ul><p><img src="https://img-blog.csdnimg.cn/2020090310223311.png#pic_center" alt="img"></p><p>虽然准确率能够判断总的正确率，但是在样本不均衡的情况下，并不能作为很好的指标来衡量结果。</p><p>比如在样本集中，正样本有90个，负样本有10个，样本是严重的不均衡。对于这种情况，我们只需要将全部样本预测为正样本，就能得到90%的准确率，但是完全没有意义。对于新数据，完全体现不出准确率。因此，在样本不平衡的情况下，得到的高准确率没有任何意义，此时准确率就会失效。所以，我们需要寻找新的指标来评价模型的优劣。</p><h2 id="精确率"><a href="#精确率" class="headerlink" title="精确率"></a>精确率</h2><p>精确率(Precision) 是针对预测结果为正而言的，其含义是在被所有预测为正的样本中实际为正样本的概率，表达式为：</p><p><img src="https://img-blog.csdnimg.cn/20200903102459789.png#pic_center" alt="img"></p><p>精确率和准确率看上去有些类似，但是是两个完全不同的概念。精确率代表对正样本结果中的预测准确程度，准确率则代表整体的预测准确程度，包括正样本和负样本。</p><h2 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h2><p>召回率(Recall) 是针对原样本为正而言的，其含义是在实际为正的样本中被预测为正样本的概率，表达式为</p><p><img src="https://img-blog.csdnimg.cn/20200903102558486.png#pic_center" alt="img"></p><h2 id="F1分数"><a href="#F1分数" class="headerlink" title="F1分数"></a>F1分数</h2><p>首先我们先明确目标，我们希望精确率和召回率都很高，但实际上是矛盾的，上述两个指标是矛盾体，无法做到双高。因此，选择合适的阈值点，就需要根据实际问题需求，比如我们想要很高的精确率，就要牺牲掉一些召回率。想要得到很高的召回率，就要牺牲掉一些精准率。但通常情况下，我们可以根据他们之间的平衡点，定义一个新的指标：F1分数(F1-Score)。F1分数同时考虑精确率和召回率，让两者同时达到最高，取得平衡。F1分数表达式为：</p><p><img src="https://img-blog.csdnimg.cn/202009031030473.png#pic_center" alt="在这里插入图片描述"></p><h2 id="Roc、AUC曲线"><a href="#Roc、AUC曲线" class="headerlink" title="Roc、AUC曲线"></a>Roc、AUC曲线</h2><p>真正率(TPR)和假正率(FPR)：</p><ul><li>横坐标：伪正类率(False positive rate，FPR，FPR=FP/(FP+TN))，预测为正但实际为负的样本占所有负例样本的比例；</li><li>纵坐标：真正类率(True positive rate，TPR，TPR=TP/(TP+FN))，预测为正且实际为正的样本占所有正例样本的比例(召回率);</li></ul><p>ROC曲线也是通过遍历所有阈值来绘制曲线的。如果我们不断的遍历所有阈值，预测的正样本和负样本是在不断变化的，相应的ROC曲线TPR和FPR也会沿着曲线滑动。FPR表示模型虚报的程度，TPR表示模型预测覆盖的程度。理所当然的，我们希望虚报的越少越好，覆盖的越多越好。所以TPR越高，同时FPR越低，也就是ROC曲线越陡，那么模型的性能也就越好。不论样本比例如何改变，ROC曲线都没有影响，也就是ROC曲线无视样本间的不平衡问题。</p><p>AUC(Area Under Curve) 表示ROC中曲线下的面积，用于判断模型的优劣。如ROC曲线所示，连接对角线的面积刚好是0.5，对角线的含义也就是随机判断预测结果，正负样本覆盖应该都是50%。另外，ROC曲线越陡越好，所以理想值是1，即正方形。所以AUC的值一般是介于0.5和1之间的。AUC评判标准可参考如下：</p><ul><li>0.5-0.7：效果较低。</li><li>0.7-0.85：效果一般。</li><li>0.85-0.95：效果很好。</li><li>0.95-1：效果非常好</li></ul>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>机器学习</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>接雨水</title>
     <link href="/2022/05/04/%E6%8E%A5%E9%9B%A8%E6%B0%B4/"/>
     <url>/2022/05/04/%E6%8E%A5%E9%9B%A8%E6%B0%B4/</url>
