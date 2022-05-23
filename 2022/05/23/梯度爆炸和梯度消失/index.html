@@ -16,27 +16,23 @@
   <meta name="author" content="Jy Mao">
   <meta name="keywords" content="">
   
-    <meta name="description" content="混淆矩阵 TP、FP、FN、TN可以理解为  TP：预测为1，实际为1，预测正确。 FP：预测为1，实际为0，预测错误。 FN：预测为0，实际为1，预测错误。 TN：预测为0，实际为0，预测正确。准确率预测正确的结果占总样本的百分比，表达式为：   虽然准确率能够判断总的正确率，但是在样本不均衡的情况下，并不能作为很好的指标来衡量结果。 比如在样本集中，正样本有90个，负样本有10个，样本是严重的">
+    <meta name="description" content="梯度爆炸&#x2F;消失梯度消失 ： 参数更新过小，在每次更新时几乎不会移动，导致模型无法学习。 12345678%matplotlib inline  import torch from d2l import torch as d2l # 梯度消失  参数更新过小，在每次更新时几乎不会移动，导致模型无法学习x &#x3D; torch.arange(-8.0, 8.0, 0.1, requires_grad&#x3D;Tru">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习评价指标含义">
-<meta property="og:url" content="http://example.com/2022/05/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%90%AB%E4%B9%89/index.html">
+<meta property="og:title" content="梯度爆炸和梯度消失">
+<meta property="og:url" content="http://example.com/2022/05/23/%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1/index.html">
 <meta property="og:site_name" content="Jy Mao&#39;s Blog">
-<meta property="og:description" content="混淆矩阵 TP、FP、FN、TN可以理解为  TP：预测为1，实际为1，预测正确。 FP：预测为1，实际为0，预测错误。 FN：预测为0，实际为1，预测错误。 TN：预测为0，实际为0，预测正确。准确率预测正确的结果占总样本的百分比，表达式为：   虽然准确率能够判断总的正确率，但是在样本不均衡的情况下，并不能作为很好的指标来衡量结果。 比如在样本集中，正样本有90个，负样本有10个，样本是严重的">
+<meta property="og:description" content="梯度爆炸&#x2F;消失梯度消失 ： 参数更新过小，在每次更新时几乎不会移动，导致模型无法学习。 12345678%matplotlib inline  import torch from d2l import torch as d2l # 梯度消失  参数更新过小，在每次更新时几乎不会移动，导致模型无法学习x &#x3D; torch.arange(-8.0, 8.0, 0.1, requires_grad&#x3D;Tru">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/202009031021143.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyNjEzNzY5,size_16,color_FFFFFF,t_70#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/2020090310223311.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200903102459789.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/20200903102558486.png#pic_center">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/202009031030473.png#pic_center">
-<meta property="article:published_time" content="2022-05-11T16:21:32.000Z">
-<meta property="article:modified_time" content="2022-05-11T16:26:20.600Z">
+<meta property="og:image" content="https://img2020.cnblogs.com/blog/2275059/202201/2275059-20220112115335178-328256326.svg">
+<meta property="article:published_time" content="2022-05-23T15:29:52.000Z">
+<meta property="article:modified_time" content="2022-05-23T15:36:10.443Z">
 <meta property="article:author" content="Jy Mao">
 <meta property="article:tag" content="机器学习">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img-blog.csdnimg.cn/202009031021143.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyNjEzNzY5,size_16,color_FFFFFF,t_70#pic_center">
+<meta name="twitter:image" content="https://img2020.cnblogs.com/blog/2275059/202201/2275059-20220112115335178-328256326.svg">
   
   
-  <title>机器学习评价指标含义 - Jy Mao&#39;s Blog</title>
+  <title>梯度爆炸和梯度消失 - Jy Mao&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
 
@@ -170,7 +166,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="机器学习评价指标含义">
+            <span class="h2" id="subtitle" title="梯度爆炸和梯度消失">
               
             </span>
 
@@ -180,8 +176,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-05-12 00:21" pubdate>
-        2022年5月12日 凌晨
+      <time datetime="2022-05-23 23:29" pubdate>
+        2022年5月23日 晚上
       </time>
     </span>
   
@@ -229,40 +225,31 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">机器学习评价指标含义</h1>
+            <h1 style="display: none">梯度爆炸和梯度消失</h1>
             
             <div class="markdown-body">
-              <h2 id="混淆矩阵"><a href="#混淆矩阵" class="headerlink" title="混淆矩阵"></a>混淆矩阵</h2><p><img src="https://img-blog.csdnimg.cn/202009031021143.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzIyNjEzNzY5,size_16,color_FFFFFF,t_70#pic_center" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>TP、FP、FN、TN可以理解为</p>
-<ul>
-<li>TP：预测为1，实际为1，预测正确。</li>
-<li>FP：预测为1，实际为0，预测错误。</li>
-<li>FN：预测为0，实际为1，预测错误。</li>
-<li>TN：预测为0，实际为0，预测正确。<h2 id="准确率"><a href="#准确率" class="headerlink" title="准确率"></a>准确率</h2>预测正确的结果占总样本的百分比，表达式为：</li>
-</ul>
-<p><img src="https://img-blog.csdnimg.cn/2020090310223311.png#pic_center" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>虽然准确率能够判断总的正确率，但是在样本不均衡的情况下，并不能作为很好的指标来衡量结果。</p>
-<p>比如在样本集中，正样本有90个，负样本有10个，样本是严重的不均衡。对于这种情况，我们只需要将全部样本预测为正样本，就能得到90%的准确率，但是完全没有意义。对于新数据，完全体现不出准确率。因此，在样本不平衡的情况下，得到的高准确率没有任何意义，此时准确率就会失效。所以，我们需要寻找新的指标来评价模型的优劣。</p>
-<h2 id="精确率"><a href="#精确率" class="headerlink" title="精确率"></a>精确率</h2><p>精确率(Precision) 是针对预测结果为正而言的，其含义是在被所有预测为正的样本中实际为正样本的概率，表达式为：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200903102459789.png#pic_center" srcset="/img/loading.gif" lazyload alt="img"></p>
-<p>精确率和准确率看上去有些类似，但是是两个完全不同的概念。精确率代表对正样本结果中的预测准确程度，准确率则代表整体的预测准确程度，包括正样本和负样本。</p>
-<h2 id="召回率"><a href="#召回率" class="headerlink" title="召回率"></a>召回率</h2><p>召回率(Recall) 是针对原样本为正而言的，其含义是在实际为正的样本中被预测为正样本的概率，表达式为</p>
-<p><img src="https://img-blog.csdnimg.cn/20200903102558486.png#pic_center" srcset="/img/loading.gif" lazyload alt="img"></p>
-<h2 id="F1分数"><a href="#F1分数" class="headerlink" title="F1分数"></a>F1分数</h2><p>首先我们先明确目标，我们希望精确率和召回率都很高，但实际上是矛盾的，上述两个指标是矛盾体，无法做到双高。因此，选择合适的阈值点，就需要根据实际问题需求，比如我们想要很高的精确率，就要牺牲掉一些召回率。想要得到很高的召回率，就要牺牲掉一些精准率。但通常情况下，我们可以根据他们之间的平衡点，定义一个新的指标：F1分数(F1-Score)。F1分数同时考虑精确率和召回率，让两者同时达到最高，取得平衡。F1分数表达式为：</p>
-<p><img src="https://img-blog.csdnimg.cn/202009031030473.png#pic_center" srcset="/img/loading.gif" lazyload alt="在这里插入图片描述"></p>
-<h2 id="Roc、AUC曲线"><a href="#Roc、AUC曲线" class="headerlink" title="Roc、AUC曲线"></a>Roc、AUC曲线</h2><p>真正率(TPR)和假正率(FPR)：</p>
-<ul>
-<li>横坐标：伪正类率(False positive rate，FPR，FPR=FP/(FP+TN))，预测为正但实际为负的样本占所有负例样本的比例；</li>
-<li>纵坐标：真正类率(True positive rate，TPR，TPR=TP/(TP+FN))，预测为正且实际为正的样本占所有正例样本的比例(召回率);</li>
-</ul>
-<p>ROC曲线也是通过遍历所有阈值来绘制曲线的。如果我们不断的遍历所有阈值，预测的正样本和负样本是在不断变化的，相应的ROC曲线TPR和FPR也会沿着曲线滑动。FPR表示模型虚报的程度，TPR表示模型预测覆盖的程度。理所当然的，我们希望虚报的越少越好，覆盖的越多越好。所以TPR越高，同时FPR越低，也就是ROC曲线越陡，那么模型的性能也就越好。不论样本比例如何改变，ROC曲线都没有影响，也就是ROC曲线无视样本间的不平衡问题。</p>
-<p>AUC(Area Under Curve) 表示ROC中曲线下的面积，用于判断模型的优劣。如ROC曲线所示，连接对角线的面积刚好是0.5，对角线的含义也就是随机判断预测结果，正负样本覆盖应该都是50%。另外，ROC曲线越陡越好，所以理想值是1，即正方形。所以AUC的值一般是介于0.5和1之间的。AUC评判标准可参考如下：</p>
-<ul>
-<li>0.5-0.7：效果较低。</li>
-<li>0.7-0.85：效果一般。</li>
-<li>0.85-0.95：效果很好。</li>
-<li>0.95-1：效果非常好</li>
-</ul>
+              <h2 id="梯度爆炸-消失"><a href="#梯度爆炸-消失" class="headerlink" title="梯度爆炸/消失"></a>梯度爆炸/消失</h2><p><em><strong>梯度消失</strong></em> ： 参数更新过小，在每次更新时几乎不会移动，导致模型无法学习。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><div class="code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><pre><code class="hljs python">%matplotlib inline  <br><span class="hljs-keyword">import</span> torch <br><span class="hljs-keyword">from</span> d2l <span class="hljs-keyword">import</span> torch <span class="hljs-keyword">as</span> d2l <br><span class="hljs-comment"># 梯度消失  参数更新过小，在每次更新时几乎不会移动，导致模型无法学习</span><br>x = torch.arange(-<span class="hljs-number">8.0</span>, <span class="hljs-number">8.0</span>, <span class="hljs-number">0.1</span>, requires_grad=<span class="hljs-literal">True</span>)<br>y = torch.sigmoid(x)<br>y.backward(torch.ones_like(x)) <br>d2l.plot(x.detach().numpy(),[y.detach().numpy(),x.grad.numpy()],legend=[<span class="hljs-string">&quot;Sigmoid&quot;</span>,<span class="hljs-string">&quot;Grad&quot;</span>],figsize=(<span class="hljs-number">4.5</span>,<span class="hljs-number">2.5</span>))<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://img2020.cnblogs.com/blog/2275059/202201/2275059-20220112115335178-328256326.svg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><em><strong>梯度爆炸</strong></em> ： 参数更新过大，破坏了模型的稳定收敛。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">M = torch.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, size=(<span class="hljs-number">4</span>,<span class="hljs-number">4</span>))<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;一个矩阵 \n&#x27;</span>,M)<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">100</span>):<br>    M = torch.mm(M,torch.normal(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>, size=(<span class="hljs-number">4</span>, <span class="hljs-number">4</span>)))<br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;乘以100个矩阵后\n&#x27;</span>, M)<br>[out]:一个矩阵<br> tensor([[ <span class="hljs-number">0.7392</span>, -<span class="hljs-number">0.7381</span>,  <span class="hljs-number">0.1063</span>,  <span class="hljs-number">0.5866</span>],<br>        [-<span class="hljs-number">0.0302</span>, -<span class="hljs-number">1.4010</span>,  <span class="hljs-number">0.2725</span>, -<span class="hljs-number">0.3175</span>],<br>        [-<span class="hljs-number">1.9900</span>, -<span class="hljs-number">1.1248</span>,  <span class="hljs-number">1.7442</span>,  <span class="hljs-number">1.3487</span>],<br>        [-<span class="hljs-number">0.5263</span>,  <span class="hljs-number">0.5572</span>,  <span class="hljs-number">0.2403</span>,  <span class="hljs-number">0.6967</span>]])<br>乘以<span class="hljs-number">100</span>个矩阵后<br> tensor([[ <span class="hljs-number">1.4398e+25</span>, -<span class="hljs-number">4.8513e+24</span>, -<span class="hljs-number">2.9295e+23</span>, -<span class="hljs-number">2.8513e+24</span>],<br>        [ <span class="hljs-number">1.3503e+25</span>, -<span class="hljs-number">4.5497e+24</span>, -<span class="hljs-number">2.7475e+23</span>, -<span class="hljs-number">2.6741e+24</span>],<br>        [-<span class="hljs-number">1.8323e+25</span>,  <span class="hljs-number">6.1736e+24</span>,  <span class="hljs-number">3.7281e+23</span>,  <span class="hljs-number">3.6285e+24</span>],<br>        [-<span class="hljs-number">1.4487e+25</span>,  <span class="hljs-number">4.8811e+24</span>,  <span class="hljs-number">2.9476e+23</span>,  <span class="hljs-number">2.8689e+24</span>]])<br></code></pre></td></tr></table></figure>
+
+<p>具体的可以参考沐神D2l文章：<a target="_blank" rel="noopener" href="http://zh.d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html#id5">http://zh.d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html#id5</a></p>
+<p>对于沐神所说的改变权重的顺序或者重排列，不能够改善梯度爆炸和梯度消失。这里是因为改变权重顺序或者重排列只是让我们的MLP换了另外一种线性表达，本质上还是线性。为了让训练更加稳定，我们有很多种方法可以限制梯度：</p>
+<ol>
+<li>把梯度限制在一定的范围内。</li>
+<li>将乘法变成加法： ResNet , LSTM</li>
+<li>归一化： 梯度归一化。梯度裁剪。</li>
+<li>合理权重初始化和激活函数。</li>
+</ol>
+<p>最后做个总结的话就是：</p>
+<ol>
+<li>需要用启发式的初始化方法来确保初始梯度既不太大也不太小。</li>
+<li>ReLU激活函数缓解了梯度消失问题，这样可以加速收敛。</li>
+<li>随机初始化是保证在进行优化前打破对称性的关键。</li>
+<li>Xavier初始化表明，对于每一层，输出的方差不受输入数量的影响，任何梯度的方差不受输出数量的影响。</li>
+</ol>
 
             </div>
             <hr>
@@ -290,18 +277,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/23/%E6%A2%AF%E5%BA%A6%E7%88%86%E7%82%B8%E5%92%8C%E6%A2%AF%E5%BA%A6%E6%B6%88%E5%A4%B1/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">梯度爆炸和梯度消失</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/04/%E6%8E%A5%E9%9B%A8%E6%B0%B4/">
-                        <span class="hidden-mobile">接雨水</span>
+                      <a href="/2022/05/12/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E8%AF%84%E4%BB%B7%E6%8C%87%E6%A0%87%E5%90%AB%E4%B9%89/">
+                        <span class="hidden-mobile">机器学习评价指标含义</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
